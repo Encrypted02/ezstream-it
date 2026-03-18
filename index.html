@@ -1,0 +1,1988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO -->
+  <title>EZStream IT — Freelance IT Services & Tech Setup</title>
+  <meta name="description" content="Professional freelance IT services by James E. Custom gaming PC builds, security camera installation, Stremio streaming setup, phone & laptop configuration. Remote & in-person.">
+  <meta name="keywords" content="IT services, gaming PC build, streaming setup, Stremio, security cameras, laptop setup, phone setup, freelance tech support, cybersecurity">
+  <meta name="author" content="James E — EZStream IT">
+  <meta property="og:title" content="EZStream IT — Tech Setup, Done Right.">
+  <meta property="og:description" content="Freelance IT services: gaming PCs, cameras, Stremio, phones, laptops. 7 years experience. Fast, honest, priced for real people.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#7B2FFF">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%237B2FFF'/><stop offset='100%25' stop-color='%2300D4FF'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='66' font-family='Arial Black,sans-serif' font-weight='900' font-size='40' text-anchor='middle' fill='white'>EZ</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #07070F; --bg2: #0D0D1A;
+      --purple: #7B2FFF; --cyan: #00D4FF; --pink: #FF2D78;
+      --white: #FFFFFF; --gray: #A0A0B8;
+      --card: rgba(255,255,255,0.04); --border: rgba(255,255,255,0.08);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--white); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(var(--purple), var(--cyan)); border-radius: 3px; }
+
+    /* ── SCROLL PROGRESS BAR ── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--purple), var(--cyan), var(--pink));
+      z-index: 9999; transition: width 0.05s linear;
+      box-shadow: 0 0 8px rgba(123,47,255,0.6);
+    }
+
+    /* ── INTRO SPLASH ── */
+    #splash {
+      position: fixed; inset: 0; z-index: 9998;
+      background: var(--bg);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem;
+      pointer-events: none;
+    }
+    .splash-logo { font-size: 2.8rem; font-weight: 900; letter-spacing: -1px; opacity: 0; }
+    .splash-sub   { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gray); opacity: 0; }
+    .splash-line  { width: 0px; height: 2px; background: linear-gradient(90deg, var(--purple), var(--cyan)); border-radius: 2px; }
+
+    /* ── MOBILE MENU ── */
+    #mobile-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(7,7,15,0.97);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    #mobile-overlay.open { opacity: 1; pointer-events: all; }
+    .mob-link {
+      font-size: 2rem; font-weight: 900; color: var(--gray); text-decoration: none;
+      transition: color 0.2s; letter-spacing: -0.5px;
+    }
+    .mob-link:hover { color: var(--white); }
+    .mob-close {
+      position: absolute; top: 20px; right: 6%;
+      background: none; border: none; color: var(--gray);
+      font-size: 1.8rem; cursor: pointer; line-height: 1;
+    }
+    .mob-cta {
+      background: linear-gradient(135deg, var(--purple), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 64px; padding: 0 6%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(7,7,15,0.65);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo { font-size: 1.25rem; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(135deg, var(--purple), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta { padding: 0.45rem 1.1rem; border-radius: 100px; background: linear-gradient(135deg, var(--purple), var(--cyan)); color: var(--white) !important; font-weight: 700 !important; transition: opacity 0.2s, transform 0.2s !important; }
+    .nav-cta:hover { opacity: 0.85; transform: scale(1.05) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+
+    /* ── HERO ── */
+    #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 80px 5% 0; position: relative; overflow: hidden; }
+    .orbs { position: absolute; inset: 0; pointer-events: none; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.3; }
+    .orb-1 { width: 560px; height: 560px; background: var(--purple); top: -180px; left: -80px; }
+    .orb-2 { width: 450px; height: 450px; background: var(--cyan);   top: -120px; right: -60px; }
+    .orb-3 { width: 320px; height: 320px; background: var(--pink);   bottom: 8%;  left: 28%; }
+    .hero-content { position: relative; z-index: 1; max-width: 920px; }
+    .badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 1rem; border-radius: 100px; background: rgba(123,47,255,0.12); border: 1px solid rgba(123,47,255,0.35); font-size: 0.78rem; font-weight: 700; color: #B08FFF; letter-spacing: 0.4px; margin-bottom: 1.5rem; }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--purple); animation: blink 2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.6)} }
+    h1 { font-size: clamp(2.8rem, 7.5vw, 6.2rem); font-weight: 900; line-height: 1.04; letter-spacing: -2px; margin-bottom: 1.4rem; }
+    .grad { background: linear-gradient(135deg, var(--purple) 0%, var(--cyan) 50%, var(--pink) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-p { font-size: clamp(1rem, 2.2vw, 1.2rem); color: var(--gray); max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.75; }
+    .btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-p { padding: 0.9rem 2.1rem; border-radius: 100px; background: linear-gradient(135deg, var(--purple), var(--cyan)); color: #fff; font-size: 1rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; box-shadow: 0 0 30px rgba(123,47,255,0.45); transition: transform 0.2s, box-shadow 0.2s; display: inline-block; }
+    .btn-p:hover { transform: scale(1.05); box-shadow: 0 0 55px rgba(123,47,255,0.65); }
+    .btn-s { padding: 0.9rem 2.1rem; border-radius: 100px; background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.18); font-size: 1rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: background 0.2s, border-color 0.2s; display: inline-block; }
+    .btn-s:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.4); }
+    .scroll-hint { margin-top: 5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--gray); font-size: 0.7rem; letter-spacing: 2.5px; text-transform: uppercase; }
+    .scroll-line { width: 1px; height: 52px; background: linear-gradient(to bottom, var(--purple), transparent); animation: lineAnim 2s ease-in-out infinite; }
+    @keyframes lineAnim { 0%{opacity:0;transform:scaleY(0);transform-origin:top} 50%{opacity:1} 100%{opacity:0;transform:scaleY(1);transform-origin:top} }
+
+    /* ── CREDENTIALS STRIP ── */
+    #creds { background: var(--bg2); padding: 1.8rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
+    .creds-track { display: flex; gap: 3rem; align-items: center; width: max-content; animation: marquee 30s linear infinite; }
+    .creds-track:hover { animation-play-state: paused; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .cred-item { display: flex; align-items: center; gap: 0.6rem; white-space: nowrap; opacity: 0.65; transition: opacity 0.2s; }
+    .cred-item:hover { opacity: 1; }
+    .cred-icon { font-size: 1.1rem; }
+    .cred-text { font-size: 0.82rem; font-weight: 700; color: var(--white); letter-spacing: 0.3px; }
+    .cred-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--purple); margin: 0 0.5rem; }
+
+    /* ── SHARED ── */
+    section { padding: 7rem 6%; }
+    .s-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 3.5px; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.9rem; }
+    .s-title { font-size: clamp(2rem, 4.5vw, 3.6rem); font-weight: 900; letter-spacing: -1px; line-height: 1.1; margin-bottom: 0.9rem; }
+    .s-sub { font-size: 1.05rem; color: var(--gray); max-width: 580px; line-height: 1.75; }
+    .s-head { margin-bottom: 4rem; }
+    .fade-up { opacity: 0; transform: translateY(40px); }
+
+    /* ── SERVICES ── */
+    #services { background: var(--bg2); }
+    .grid-6 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.4rem; }
+    .svc-card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; overflow: hidden; position: relative; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+    .svc-card::after { content: ''; position: absolute; inset: 0; border-radius: 22px; background: radial-gradient(circle at 50% 0%, rgba(123,47,255,0.18) 0%, transparent 70%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .svc-card:hover { transform: translateY(-7px); border-color: rgba(123,47,255,0.5); box-shadow: 0 24px 70px rgba(0,0,0,0.45), 0 0 35px rgba(123,47,255,0.18); }
+    .svc-card:hover::after { opacity: 1; }
+    .svc-visual { width: 100%; height: 180px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .svc-body { padding: 1.6rem 2rem 2rem; }
+    .svc-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1rem; }
+    .svc-card h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .svc-card p  { color: var(--gray); font-size: 0.855rem; line-height: 1.65; }
+    .svc-tag { display: inline-block; margin-top: 1.1rem; padding: 0.22rem 0.75rem; border-radius: 100px; font-size: 0.72rem; font-weight: 700; }
+
+    /* Gaming PC visual */
+    .visual-pc { background: linear-gradient(160deg, #0a0010 0%, #1a0040 100%); }
+    .pc-tower { width: 80px; height: 120px; background: linear-gradient(180deg, #1e1e2e, #12121c); border: 2px solid rgba(123,47,255,0.5); border-radius: 8px; position: relative; box-shadow: 0 0 30px rgba(123,47,255,0.4), inset 0 0 20px rgba(123,47,255,0.1); }
+    .pc-rgb-strip { position: absolute; left: 8px; top: 20px; bottom: 20px; width: 4px; border-radius: 2px; background: linear-gradient(to bottom, #ff0080, #7b2fff, #00d4ff, #00ff88, #ff0080); background-size: 100% 200%; animation: rgbScroll 3s linear infinite; }
+    @keyframes rgbScroll { 0%{background-position:0 0} 100%{background-position:0 200%} }
+    .pc-fan { position: absolute; right: 10px; top: 15px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(0,212,255,0.5); display: flex; align-items: center; justify-content: center; animation: spin 2s linear infinite; }
+    .pc-fan::before { content: '✦'; font-size: 14px; color: rgba(0,212,255,0.8); }
+    @keyframes spin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    .pc-fan2 { top: 60px; animation-duration: 1.5s; }
+    .pc-power { position: absolute; right: 12px; bottom: 18px; width: 8px; height: 8px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: blink 1.5s ease-in-out infinite; }
+    .pc-glow { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, var(--purple), var(--cyan)); border-radius: 0 0 6px 6px; }
+    .pc-peripherals { display: flex; flex-direction: column; gap: 6px; margin-left: 12px; }
+    .pc-monitor { width: 90px; height: 60px; background: #0a0020; border: 2px solid rgba(123,47,255,0.4); border-radius: 5px; overflow: hidden; box-shadow: 0 0 15px rgba(123,47,255,0.3); }
+    .pc-screen-content { width: 100%; height: 100%; background: linear-gradient(135deg, rgba(123,47,255,0.4), rgba(0,212,255,0.2)); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 900; color: rgba(255,255,255,0.7); letter-spacing: 1px; }
+    .pc-keyboard { width: 90px; height: 14px; background: linear-gradient(180deg, #1e1e2e, #12121c); border: 1px solid rgba(123,47,255,0.3); border-radius: 3px; display: flex; align-items: center; justify-content: center; gap: 2px; }
+    .key { width: 6px; height: 6px; border-radius: 1px; background: rgba(123,47,255,0.5); }
+
+    /* Camera visual */
+    .visual-cam { background: linear-gradient(160deg, #000d1a 0%, #001a33 100%); }
+    .cam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 150px; height: 110px; }
+    .cam-feed { background: #0a1520; border: 1px solid rgba(0,212,255,0.2); border-radius: 4px; position: relative; overflow: hidden; display: flex; align-items: flex-start; justify-content: flex-end; }
+    .cam-feed::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,212,255,0.05), transparent); }
+    .cam-rec { width: 5px; height: 5px; border-radius: 50%; background: #ff2d78; margin: 4px; z-index: 1; animation: blink 1.2s ease-in-out infinite; box-shadow: 0 0 5px #ff2d78; }
+    .cam-silhouette { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 20px; height: 28px; background: rgba(0,212,255,0.15); clip-path: polygon(25% 0%, 75% 0%, 100% 100%, 0% 100%); }
+    .cam-scanline { position: absolute; left: 0; right: 0; height: 2px; background: rgba(0,212,255,0.2); animation: scan 2s linear infinite; }
+    @keyframes scan { 0%{top:0} 100%{top:100%} }
+    .cam-label { position: absolute; bottom: 3px; left: 4px; font-size: 6px; color: rgba(0,212,255,0.6); font-weight: 700; letter-spacing: 0.5px; }
+
+    /* TV visual */
+    .visual-tv { background: linear-gradient(160deg, #050510 0%, #0d0d20 100%); flex-direction: column; gap: 0; }
+    .tv-frame { width: 160px; height: 100px; background: #111; border: 3px solid #333; border-radius: 8px; position: relative; overflow: hidden; box-shadow: 0 0 30px rgba(0,0,0,0.8), 0 0 15px rgba(0,212,255,0.1); }
+    .tv-screen { width: 100%; height: 100%; background: linear-gradient(135deg, #1a0040, #000d2e); position: relative; overflow: hidden; }
+    .tv-content-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 6px 8px; }
+    .tv-title { font-size: 7px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .tv-meta  { font-size: 6px; color: rgba(255,255,255,0.5); }
+    .tv-poster-right { position: absolute; right: 10px; top: 8px; bottom: 8px; width: 35px; border-radius: 3px; background: linear-gradient(135deg, #7b2fff, #ff2d78); box-shadow: 0 0 10px rgba(123,47,255,0.5); }
+    .tv-row { position: absolute; bottom: 45px; left: 8px; right: 50px; display: flex; gap: 4px; }
+    .tv-thumb { width: 24px; height: 16px; border-radius: 2px; flex-shrink: 0; }
+    .tv-stand { width: 20px; height: 10px; background: #222; border-radius: 0 0 4px 4px; margin: 0 auto; }
+    .tv-base  { width: 50px; height: 4px; background: #1a1a1a; border-radius: 2px; margin: 0 auto; }
+    .tv-play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 8px; }
+
+    /* Phone visual */
+    .visual-phone { background: linear-gradient(160deg, #001a0d 0%, #003320 100%); gap: 0; }
+    .phone-frame { width: 70px; height: 130px; background: #111827; border: 2px solid #374151; border-radius: 14px; position: relative; overflow: hidden; box-shadow: 0 0 25px rgba(0,0,0,0.6); }
+    .phone-screen { position: absolute; inset: 4px; border-radius: 11px; background: #0f172a; overflow: hidden; }
+    .phone-notch { width: 22px; height: 5px; background: #111827; border-radius: 0 0 4px 4px; margin: 0 auto; }
+    .phone-status-bar { display: flex; justify-content: space-between; padding: 2px 6px; }
+    .phone-status-bar span { font-size: 4px; color: rgba(255,255,255,0.7); }
+    .phone-app-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; padding: 6px; margin-top: 4px; }
+    .phone-app { width: 100%; aspect-ratio: 1; border-radius: 5px; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+    .phone-home-bar { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 25px; height: 3px; background: rgba(255,255,255,0.3); border-radius: 2px; }
+    .phone-frame-2 { transform: rotate(8deg) translateX(10px); height: 115px; box-shadow: -5px 5px 20px rgba(0,0,0,0.5); }
+
+    /* Laptop visual */
+    .visual-laptop { background: linear-gradient(160deg, #1a0800 0%, #2d1200 100%); flex-direction: column; gap: 0; justify-content: center; }
+    .laptop-screen { width: 150px; height: 90px; background: #111; border: 2px solid #2a2a2a; border-radius: 6px 6px 0 0; overflow: hidden; box-shadow: 0 0 20px rgba(0,0,0,0.6); }
+    .laptop-display { width: 100%; height: 100%; background: linear-gradient(135deg, #1a0800, #0d1a00); display: flex; flex-direction: column; }
+    .laptop-menubar { height: 10px; background: rgba(255,255,255,0.05); display: flex; align-items: center; padding: 0 6px; gap: 3px; }
+    .laptop-dot { width: 4px; height: 4px; border-radius: 50%; }
+    .laptop-content { flex: 1; display: grid; grid-template-columns: 28px 1fr; }
+    .laptop-sidebar { background: rgba(255,255,255,0.03); padding: 4px 3px; display: flex; flex-direction: column; gap: 3px; }
+    .sidebar-item { height: 5px; border-radius: 2px; background: rgba(255,165,0,0.3); }
+    .sidebar-item.active { background: rgba(255,165,0,0.7); }
+    .laptop-main { padding: 5px; display: flex; flex-direction: column; gap: 3px; }
+    .code-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.08); }
+    .code-line.orange { background: rgba(255,165,0,0.4); }
+    .code-line.cyan   { background: rgba(0,212,255,0.4); }
+    .code-line.purple { background: rgba(123,47,255,0.4); }
+    .laptop-base { width: 160px; height: 8px; background: linear-gradient(180deg, #2a2a2a, #1a1a1a); border-radius: 0 0 4px 4px; }
+    .laptop-trackpad { width: 160px; height: 18px; background: #161616; border: 1px solid #2a2a2a; border-radius: 0 0 6px 6px; display: flex; align-items: center; justify-content: center; }
+    .trackpad-surface { width: 40px; height: 10px; border-radius: 3px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+
+    /* Stremio card visual */
+    .visual-stremio { background: linear-gradient(160deg, #0a0020 0%, #000d2e 100%); flex-direction: column; gap: 0; }
+    .stremio-mini-tv { width: 155px; height: 105px; background: #0a0a14; border: 2px solid rgba(123,47,255,0.4); border-radius: 8px; overflow: hidden; box-shadow: 0 0 25px rgba(123,47,255,0.3); position: relative; }
+    .stremio-mini-nav { height: 14px; background: rgba(0,0,0,0.8); display: flex; align-items: center; padding: 0 6px; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stremio-logo-mini { font-size: 6px; font-weight: 900; color: var(--purple); }
+    .stremio-nav-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+    .stremio-mini-hero { height: 54px; background: linear-gradient(135deg, #200040, #000d2e); position: relative; padding: 6px 8px; display: flex; align-items: flex-end; }
+    .stremio-mini-poster { position: absolute; right: 8px; top: 4px; bottom: 4px; width: 30px; border-radius: 3px; background: linear-gradient(135deg, #7b2fff, #ff2d78); }
+    .stremio-mini-title { font-size: 7px; font-weight: 900; color: #fff; }
+    .stremio-mini-meta  { font-size: 5px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+    .stremio-mini-row { height: 28px; padding: 4px 6px; display: flex; gap: 4px; align-items: center; overflow: hidden; }
+    .stremio-mini-thumb { width: 28px; height: 20px; border-radius: 2px; flex-shrink: 0; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg); }
+    .about-wrap { display: grid; grid-template-columns: 420px 1fr; gap: 6rem; align-items: center; }
+    .about-photo-wrap { position: relative; }
+    .about-photo-frame { position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 3/4; box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.07); }
+    .about-photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; filter: contrast(1.05) brightness(0.95); }
+    .about-photo-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,7,15,0.65) 0%, transparent 50%); border-radius: 28px; }
+    .about-name-card { position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%); background: rgba(13,13,26,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(123,47,255,0.4); border-radius: 16px; padding: 1rem 1.5rem; white-space: nowrap; z-index: 2; box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 20px rgba(123,47,255,0.2); text-align: center; }
+    .about-name-card h3 { font-size: 1.1rem; font-weight: 900; letter-spacing: -0.3px; }
+    .about-name-card p  { font-size: 0.75rem; color: var(--gray); margin-top: 0.2rem; }
+    .about-badge-float { position: absolute; top: 20px; right: -16px; background: linear-gradient(135deg, var(--purple), var(--cyan)); border-radius: 14px; padding: 0.7rem 1rem; display: flex; flex-direction: column; align-items: center; box-shadow: 0 8px 30px rgba(123,47,255,0.5); z-index: 2; }
+    .about-badge-float span:first-child { font-size: 1.4rem; font-weight: 900; line-height: 1; }
+    .about-badge-float span:last-child  { font-size: 0.6rem; font-weight: 700; opacity: 0.85; letter-spacing: 0.5px; text-transform: uppercase; }
+    .about-content .s-label { color: var(--purple); }
+    .about-bio { font-size: 1.05rem; color: var(--gray); line-height: 1.8; margin-top: 1.2rem; }
+    .about-bio strong { color: var(--white); }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+    .about-tag { padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.78rem; font-weight: 700; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--gray); transition: border-color 0.2s, color 0.2s; }
+    .about-tag:hover { border-color: rgba(123,47,255,0.5); color: var(--white); }
+    .about-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2.5rem; }
+    .about-stat { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.2rem 1rem; text-align: center; }
+    .about-stat-num { font-size: 1.8rem; font-weight: 900; line-height: 1; background: linear-gradient(135deg, var(--purple), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .about-stat-label { font-size: 0.72rem; color: var(--gray); margin-top: 0.3rem; font-weight: 500; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--bg2); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 4rem; }
+    .testi-card { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 2rem; position: relative; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+    .testi-card:hover { transform: translateY(-5px); border-color: rgba(123,47,255,0.4); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .testi-stars { display: flex; gap: 3px; margin-bottom: 1.2rem; }
+    .testi-stars span { color: #FFD700; font-size: 1rem; }
+    .testi-quote { font-size: 0.95rem; color: var(--gray); line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; }
+    .testi-quote::before { content: '"'; font-size: 2rem; color: var(--purple); font-style: normal; line-height: 0; vertical-align: -0.5rem; margin-right: 0.2rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.85rem; }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; flex-shrink: 0; }
+    .testi-name { font-size: 0.9rem; font-weight: 800; }
+    .testi-service { font-size: 0.75rem; color: var(--gray); margin-top: 0.1rem; }
+    .testi-badge { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 0.65rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 100px; }
+
+    /* ── STREMIO SECTION ── */
+    #stremio { background: var(--bg); padding-bottom: 4rem; }
+    .stremio-header { text-align: center; margin-bottom: 3.5rem; }
+    .stremio-header .s-label { color: var(--pink); }
+    .stremio-header .s-sub  { margin: 0 auto; }
+    .stremio-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem; }
+    .tv-mockup-wrap { position: relative; background: var(--card); border: 1px solid var(--border); border-radius: 22px; overflow: hidden; padding: 1.5rem; }
+    .tv-mockup-label { font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .tv-mockup-label::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--pink); display: inline-block; animation: blink 1.5s ease-in-out infinite; }
+    .stremio-ui { background: #0c0c14; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); }
+    .stremio-nav { height: 36px; background: rgba(0,0,0,0.8); display: flex; align-items: center; padding: 0 12px; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .stremio-nav-logo { font-size: 0.7rem; font-weight: 900; color: #7B2FFF; }
+    .stremio-nav-items { display: flex; gap: 0.8rem; margin-left: 0.5rem; }
+    .stremio-nav-item { font-size: 0.62rem; color: rgba(255,255,255,0.5); font-weight: 600; cursor: pointer; }
+    .stremio-nav-item.active { color: #fff; }
+    .stremio-search { margin-left: auto; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 100px; padding: 3px 10px; font-size: 0.58rem; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 0.3rem; }
+    .stremio-hero { height: 150px; position: relative; overflow: hidden; background: linear-gradient(135deg, #120028, #001428); display: flex; align-items: flex-end; padding: 14px 16px; }
+    .stremio-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(123,47,255,0.35) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(0,212,255,0.15) 0%, transparent 50%); }
+    .stremio-hero-poster { position: absolute; right: 16px; top: 10px; bottom: 10px; width: 85px; border-radius: 6px; overflow: hidden; box-shadow: -10px 0 30px rgba(0,0,0,0.6); }
+    .poster-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+    .stremio-hero-info { position: relative; z-index: 1; max-width: 55%; }
+    .hero-eyebrow { font-size: 0.52rem; font-weight: 700; color: var(--cyan); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+    .hero-title { font-size: 1.1rem; font-weight: 900; line-height: 1.1; margin-bottom: 6px; }
+    .hero-meta  { font-size: 0.55rem; color: rgba(255,255,255,0.55); margin-bottom: 8px; }
+    .hero-btns  { display: flex; gap: 6px; }
+    .hero-btn { padding: 4px 10px; border-radius: 100px; font-size: 0.55rem; font-weight: 800; cursor: pointer; border: none; }
+    .hero-btn-p { background: var(--purple); color: #fff; }
+    .hero-btn-s { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+    .stremio-row-label { font-size: 0.62rem; font-weight: 800; color: rgba(255,255,255,0.7); padding: 8px 14px 6px; letter-spacing: 0.3px; }
+    .stremio-poster-row { display: flex; gap: 6px; padding: 0 14px 10px; overflow-x: auto; scrollbar-width: none; }
+    .stremio-poster-row::-webkit-scrollbar { display: none; }
+    .s-poster { width: 60px; height: 85px; border-radius: 5px; flex-shrink: 0; position: relative; overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+    .s-poster:hover { transform: scale(1.05); }
+    .s-poster-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+    .s-poster-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); display: flex; align-items: flex-end; padding: 4px; }
+    .s-poster-title { font-size: 0.42rem; font-weight: 700; color: #fff; line-height: 1.2; }
+    .catalog-panel { background: var(--card); border: 1px solid var(--border); border-radius: 22px; overflow: hidden; padding: 1.5rem; }
+    .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 0.75rem; }
+    .catalog-tile { border-radius: 10px; padding: 0.8rem 0.6rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; min-height: 70px; position: relative; overflow: hidden; }
+    .catalog-tile:hover { transform: scale(1.04); }
+    .catalog-tile-name  { font-size: 0.62rem; font-weight: 800; text-align: center; line-height: 1.2; }
+    .catalog-tile-count { font-size: 0.55rem; opacity: 0.65; }
+    .cat-netflix   { background: linear-gradient(135deg, rgba(229,9,20,0.25), rgba(229,9,20,0.08));   border: 1px solid rgba(229,9,20,0.3); }
+    .cat-netflix .catalog-tile-name { color: #E50914; }
+    .cat-hbo       { background: linear-gradient(135deg, rgba(176,0,125,0.25), rgba(176,0,125,0.08)); border: 1px solid rgba(176,0,125,0.3); }
+    .cat-hbo .catalog-tile-name { color: #CC5CE8; }
+    .cat-apple     { background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03)); border: 1px solid rgba(255,255,255,0.15); }
+    .cat-apple .catalog-tile-name { color: #fff; }
+    .cat-disney    { background: linear-gradient(135deg, rgba(17,60,207,0.25), rgba(17,60,207,0.08)); border: 1px solid rgba(17,60,207,0.4); }
+    .cat-disney .catalog-tile-name { color: #5b8cff; }
+    .cat-prime     { background: linear-gradient(135deg, rgba(0,168,224,0.25), rgba(0,168,224,0.08)); border: 1px solid rgba(0,168,224,0.3); }
+    .cat-prime .catalog-tile-name { color: #00A8E0; }
+    .cat-hulu      { background: linear-gradient(135deg, rgba(28,231,131,0.2), rgba(28,231,131,0.05)); border: 1px solid rgba(28,231,131,0.3); }
+    .cat-hulu .catalog-tile-name { color: #1CE783; }
+    .cat-paramount { background: linear-gradient(135deg, rgba(0,100,255,0.2), rgba(0,100,255,0.06)); border: 1px solid rgba(0,100,255,0.3); }
+    .cat-paramount .catalog-tile-name { color: #4d8aff; }
+    .cat-peacock   { background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(123,47,255,0.08)); border: 1px solid rgba(255,255,255,0.12); }
+    .cat-peacock .catalog-tile-name { background: linear-gradient(135deg,#ff6b35,#f7c59f,#70d6ff,#e06af4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .cat-espn      { background: linear-gradient(135deg, rgba(204,0,0,0.2), rgba(204,0,0,0.06)); border: 1px solid rgba(204,0,0,0.3); }
+    .cat-espn .catalog-tile-name { color: #ff4444; }
+    .cat-crunchyroll { background: linear-gradient(135deg, rgba(244,117,33,0.2), rgba(244,117,33,0.06)); border: 1px solid rgba(244,117,33,0.3); }
+    .cat-crunchyroll .catalog-tile-name { color: #F47521; }
+    .cat-mubi      { background: linear-gradient(135deg, rgba(255,60,60,0.15), rgba(255,60,60,0.04)); border: 1px solid rgba(255,60,60,0.25); }
+    .cat-mubi .catalog-tile-name { color: #ff5555; }
+    .cat-more      { background: linear-gradient(135deg, rgba(123,47,255,0.15), rgba(0,212,255,0.08)); border: 1px solid rgba(123,47,255,0.3); }
+    .cat-more .catalog-tile-name { background: linear-gradient(135deg,var(--purple),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .stremio-feat-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin-top: 3rem; }
+    .feat-list { display: flex; flex-direction: column; gap: 1.1rem; }
+    .feat-item { display: flex; align-items: flex-start; gap: 0.9rem; }
+    .feat-check { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; background: linear-gradient(135deg, var(--purple), var(--cyan)); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 900; }
+    .feat-item p { font-size: 0.92rem; color: var(--gray); line-height: 1.6; }
+    .feat-item strong { color: var(--white); }
+
+    /* ── HOW IT WORKS ── */
+    #how { background: var(--bg2); text-align: center; }
+    #how .s-sub { margin: 0 auto; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 4.5rem; position: relative; }
+    .steps::before { content: ''; position: absolute; top: 39px; left: 22%; right: 22%; height: 1px; background: linear-gradient(to right, var(--purple), var(--cyan)); opacity: 0.35; }
+    .step { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; }
+    .step-num { width: 78px; height: 78px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 900; position: relative; z-index: 1; }
+    .step-num span { background: linear-gradient(135deg, var(--purple), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .step h3 { font-size: 1.1rem; font-weight: 800; }
+    .step p  { color: var(--gray); font-size: 0.88rem; max-width: 210px; line-height: 1.65; }
+
+    /* ── BOOK / CALENDLY ── */
+    #book { background: var(--bg); }
+    .book-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .calendly-placeholder {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 22px; padding: 3rem 2rem;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1.2rem; text-align: center; min-height: 340px;
+    }
+    .calendly-icon { font-size: 3rem; }
+    .calendly-placeholder h3 { font-size: 1.2rem; font-weight: 800; }
+    .calendly-placeholder p  { font-size: 0.88rem; color: var(--gray); max-width: 280px; line-height: 1.65; }
+    .calendly-placeholder .coming { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0.3rem 0.8rem; border-radius: 100px; background: rgba(123,47,255,0.15); border: 1px solid rgba(123,47,255,0.3); color: #B08FFF; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg2); }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: start; }
+    .stat-cards { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+    .stat-card { display: flex; align-items: center; gap: 1rem; padding: 1.2rem; border-radius: 17px; background: var(--card); border: 1px solid var(--border); }
+    .stat-icon { width: 46px; height: 46px; border-radius: 13px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
+    .stat-card h4 { font-size: 0.8rem; color: var(--gray); margin-bottom: 0.2rem; font-weight: 500; }
+    .stat-card p  { font-size: 0.97rem; font-weight: 700; }
+    form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+    label { font-size: 0.82rem; font-weight: 600; color: var(--gray); }
+    input, select, textarea { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 13px; padding: 0.85rem 1rem; color: var(--white); font-size: 0.93rem; font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+    input:focus, select:focus, textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(123,47,255,0.15); }
+    select option { background: #1A1A2E; }
+    textarea { resize: vertical; min-height: 115px; }
+    #form-msg { text-align: center; font-size: 0.83rem; color: #00FF88; display: none; margin-top: 0.25rem; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--bg2); border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 6%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .f-logo { font-size: 1.1rem; font-weight: 900; background: linear-gradient(135deg, var(--purple), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    footer p { color: var(--gray); font-size: 0.82rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) {
+      .about-wrap         { grid-template-columns: 1fr; gap: 5rem; }
+      .about-photo-wrap   { max-width: 380px; margin: 0 auto; }
+      .stremio-panels     { grid-template-columns: 1fr; }
+      .stremio-feat-strip { grid-template-columns: 1fr; }
+      .book-wrap          { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 900px) {
+      .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .steps        { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-links  { display: none; }
+      .hamburger  { display: flex; }
+      .form-row   { grid-template-columns: 1fr; }
+      h1          { letter-spacing: -1px; }
+      .catalog-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ── SERVICE AREA STRIP ── */
+    #service-area { background: linear-gradient(90deg, rgba(123,47,255,0.08), rgba(0,212,255,0.06)); border-top: 1px solid rgba(123,47,255,0.2); border-bottom: 1px solid rgba(123,47,255,0.2); padding: 1.1rem 6%; display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .area-item { display: flex; align-items: center; gap: 0.55rem; font-size: 0.85rem; font-weight: 600; color: var(--gray); }
+    .area-divider { width: 4px; height: 4px; border-radius: 50%; background: rgba(123,47,255,0.4); }
+    @media (max-width: 640px) { .area-divider { display: none; } #service-area { gap: 1rem; } }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--bg); padding: 6rem 6% 5rem; }
+    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    .gallery-item { border-radius: 22px; overflow: hidden; position: relative; aspect-ratio: 3/4; border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.4); transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .gallery-item:hover { transform: translateY(-6px); box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 30px rgba(123,47,255,0.2); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .gallery-item:hover img { transform: scale(1.03); }
+    .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.4rem 1.4rem; background: linear-gradient(to top, rgba(7,7,15,0.95) 0%, transparent 100%); }
+    .gallery-caption h4 { font-size: 1rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .gallery-caption p { font-size: 0.75rem; color: var(--gray); }
+    .gallery-more { text-align: center; margin-top: 2rem; color: var(--gray); font-size: 0.83rem; }
+    @media (max-width: 640px) { .gallery-grid { grid-template-columns: 1fr; } }
+
+    /* ── NEW SERVICE CARD VISUALS ── */
+    .visual-virus { background: linear-gradient(160deg, #0f0000 0%, #1a0505 100%); align-items: center; justify-content: center; }
+    .virus-terminal { width: 190px; background: #0c0c0c; border: 1px solid rgba(255,45,120,.35); border-radius: 8px; overflow: hidden; box-shadow: 0 0 25px rgba(255,45,120,.2), inset 0 0 15px rgba(255,45,120,.04); }
+    .term-bar { height: 18px; background: #1a1a1a; display: flex; align-items: center; padding: 0 6px; gap: 4px; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .term-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .term-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+    .term-line { font-size: 7.5px; color: rgba(255,255,255,.75); font-family: 'Courier New', monospace; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .term-ok { color: #00ff88; font-weight: 700; flex-shrink: 0; }
+    .term-warn { color: #ff2d78; font-weight: 700; flex-shrink: 0; animation: warnBlink 1s step-end infinite; }
+    .term-cursor { color: rgba(255,255,255,.6); animation: termBlink 1s step-end infinite; }
+    @keyframes termBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+    @keyframes warnBlink { 0%,49%{opacity:1} 50%,100%{opacity:.4} }
+
+    .visual-net { background: linear-gradient(160deg, #000d1a 0%, #001428 100%); flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; }
+    .net-router { display: flex; flex-direction: column; align-items: center; }
+    .router-body { width: 85px; height: 28px; background: linear-gradient(180deg, #1e2a3a, #121c28); border: 1px solid rgba(0,212,255,.45); border-radius: 6px; display: flex; align-items: center; padding: 0 10px; gap: 5px; box-shadow: 0 0 18px rgba(0,212,255,.25); position: relative; }
+    .router-antenna { position: absolute; top: -12px; width: 2px; height: 12px; background: rgba(0,212,255,.5); border-radius: 2px 2px 0 0; left: 18px; }
+    .router-antenna.right { left: auto; right: 18px; }
+    .router-light-main { width: 6px; height: 6px; border-radius: 50%; background: #00d4ff; animation: blink 1.5s ease-in-out infinite; box-shadow: 0 0 6px #00d4ff; }
+    .router-lights-row { display: flex; gap: 3px; margin-left: auto; }
+    .rl { width: 4px; height: 4px; border-radius: 50%; background: #00ff88; animation: blink 1.5s ease-in-out infinite; box-shadow: 0 0 4px #00ff88; }
+    .wifi-rings { position: relative; width: 90px; height: 55px; display: flex; align-items: flex-end; justify-content: center; overflow: visible; }
+    .wifi-ring { position: absolute; border-top: 2px solid; border-left: 2px solid; border-right: 2px solid; border-bottom: none; border-radius: 50% 50% 0 0; bottom: 0; left: 50%; transform: translateX(-50%); }
+    .wr1 { width: 24px; height: 12px; border-color: rgba(0,212,255,0.9); animation: wifiPop 2s ease-in-out infinite 0s; }
+    .wr2 { width: 50px; height: 25px; border-color: rgba(0,212,255,0.55); animation: wifiPop 2s ease-in-out infinite 0.25s; }
+    .wr3 { width: 80px; height: 40px; border-color: rgba(0,212,255,0.25); animation: wifiPop 2s ease-in-out infinite 0.5s; }
+    .wifi-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,212,255,0.9); position: absolute; bottom: -3px; left: 50%; transform: translateX(-50%); box-shadow: 0 0 8px rgba(0,212,255,0.8); }
+    @keyframes wifiPop { 0%{opacity:0} 30%{opacity:1} 100%{opacity:0.4} }
+
+    .visual-sec { background: linear-gradient(160deg, #08001a 0%, #120030 100%); align-items: center; justify-content: center; }
+    .sec-shield { display: flex; align-items: center; gap: 1.4rem; }
+    .shield-wrap { position: relative; width: 68px; height: 76px; display: flex; align-items: center; justify-content: center; }
+    .shield-svg { font-size: 2.2rem; position: relative; z-index: 1; filter: drop-shadow(0 0 14px rgba(123,47,255,.85)); }
+    .shield-ring { position: absolute; border-radius: 50%; border: 2px solid rgba(123,47,255,.45); animation: shieldPulse 2.2s ease-in-out infinite; inset: 0; }
+    .shield-ring:nth-child(2) { inset: -10px; animation-delay: 0.4s; border-color: rgba(0,212,255,.25); }
+    @keyframes shieldPulse { 0%,100%{transform:scale(1);opacity:.6} 50%{transform:scale(1.12);opacity:1} }
+    .sec-checks { display: flex; flex-direction: column; gap: 9px; }
+    .sec-check { display: flex; align-items: center; gap: 7px; }
+    .sc-dot { width: 7px; height: 7px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 7px #00ff88; animation: blink 2s ease-in-out infinite; flex-shrink: 0; }
+    .sc-text { font-size: 8px; color: rgba(255,255,255,.82); font-weight: 700; letter-spacing: 0.3px; }
+
+    /* Website Build visual */
+    .visual-web { background: linear-gradient(160deg, #000814 0%, #001428 100%); flex-direction: column; align-items: center; justify-content: center; gap: 0; }
+    .browser-frame { width: 185px; background: #0d1117; border: 1px solid rgba(0,212,255,.3); border-radius: 8px; overflow: hidden; box-shadow: 0 0 25px rgba(0,212,255,.2); }
+    .browser-bar { height: 18px; background: #161b22; display: flex; align-items: center; padding: 0 8px; gap: 5px; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .browser-dot { width: 5px; height: 5px; border-radius: 50%; }
+    .browser-url { flex: 1; height: 8px; background: rgba(255,255,255,.07); border-radius: 4px; margin: 0 6px; display: flex; align-items: center; padding: 0 5px; }
+    .browser-url-text { font-size: 5px; color: rgba(0,212,255,.7); font-family: monospace; white-space: nowrap; overflow: hidden; }
+    .browser-body { padding: 0; }
+    .web-hero-mock { height: 42px; background: linear-gradient(135deg, #7b2fff22, #00d4ff11); display: flex; align-items: center; padding: 0 8px; gap: 6px; border-bottom: 1px solid rgba(255,255,255,.05); }
+    .web-logo-mock { width: 28px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--purple), var(--cyan)); }
+    .web-nav-dots { display: flex; gap: 4px; margin-left: auto; }
+    .web-nav-dot { width: 14px; height: 4px; border-radius: 2px; background: rgba(255,255,255,.12); }
+    .web-nav-cta { width: 20px; height: 8px; border-radius: 4px; background: linear-gradient(90deg, var(--purple), var(--cyan)); }
+    .web-content { padding: 6px 8px; display: flex; flex-direction: column; gap: 4px; }
+    .web-headline { height: 7px; border-radius: 3px; background: rgba(255,255,255,.7); width: 80%; }
+    .web-headline-2 { height: 7px; border-radius: 3px; background: linear-gradient(90deg, var(--purple), var(--cyan)); width: 55%; }
+    .web-subtext { display: flex; flex-direction: column; gap: 2px; margin-top: 2px; }
+    .web-line { height: 3px; border-radius: 2px; background: rgba(255,255,255,.12); }
+    .web-cards-row { display: flex; gap: 4px; margin-top: 4px; }
+    .web-card-mock { flex: 1; height: 28px; border-radius: 4px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); }
+    .web-typing { display: flex; align-items: center; gap: 3px; margin-top: 4px; }
+    .web-cursor { width: 1px; height: 8px; background: var(--cyan); animation: termBlink 1s step-end infinite; }
+
+    /* ── PRICING ── */
+    #pricing { background: var(--bg2); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.2rem; margin-top: 3.5rem; }
+    .price-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 1.6rem 1.8rem; position: relative; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+    .price-card:hover { transform: translateY(-5px); border-color: rgba(123,47,255,.4); box-shadow: 0 20px 55px rgba(0,0,0,.35); }
+    .price-card.featured { border-color: rgba(123,47,255,.5); box-shadow: 0 0 30px rgba(123,47,255,.15); }
+    .price-icon { font-size: 1.7rem; margin-bottom: 0.8rem; display: block; }
+    .price-service { font-size: 0.97rem; font-weight: 800; margin-bottom: 0.35rem; }
+    .price-range { font-size: 1.55rem; font-weight: 900; background: linear-gradient(135deg, var(--purple), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; margin-bottom: 0.5rem; }
+    .price-note { font-size: 0.775rem; color: var(--gray); line-height: 1.6; }
+    .price-badge { position: absolute; top: 1rem; right: 1rem; font-size: 0.62rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 100px; background: linear-gradient(135deg, var(--pink), var(--purple)); color: #fff; }
+    .pricing-note { text-align: center; margin-top: 2.5rem; font-size: 0.88rem; color: var(--gray); line-height: 1.7; }
+    .pricing-note strong { color: var(--white); }
+
+    /* ── FAQ ── */
+    #faq { background: var(--bg); }
+    .faq-list { max-width: 760px; margin: 3.5rem auto 0; display: flex; flex-direction: column; gap: 0.9rem; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: border-color 0.25s; }
+    .faq-item.open { border-color: rgba(123,47,255,.45); }
+    .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 1.15rem 1.5rem; background: none; border: none; color: var(--white); font-size: 0.95rem; font-weight: 700; cursor: pointer; text-align: left; gap: 1rem; font-family: 'Inter', sans-serif; }
+    .faq-chevron { width: 24px; height: 24px; border-radius: 50%; background: rgba(123,47,255,.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.75rem; color: #A87FFF; transition: transform 0.3s, background 0.2s; line-height: 1; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); background: rgba(123,47,255,.3); color: var(--white); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .faq-a-inner { padding: 0 1.5rem 1.3rem; font-size: 0.9rem; color: var(--gray); line-height: 1.75; }
+    .faq-item.open .faq-a { max-height: 400px; }
+
+    /* ── FLOATING CONTACT BUTTON ── */
+    #float-contact { position: fixed; bottom: 2rem; right: 2rem; z-index: 350; display: flex; align-items: center; gap: 0.6rem; padding: 0.85rem 1.4rem; border-radius: 100px; background: linear-gradient(135deg, #25D366, #128C7E); color: #fff; font-size: 0.88rem; font-weight: 800; text-decoration: none; box-shadow: 0 8px 30px rgba(37,211,102,.5); transition: transform 0.2s, box-shadow 0.2s; }
+    #float-contact:hover { transform: scale(1.05); box-shadow: 0 12px 40px rgba(37,211,102,.65); }
+    @media (max-width: 640px) { #float-contact { display: none; } }
+
+    /* ── ACCEPTING CLIENTS BADGE ── */
+    .hero-badges { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+    /* ── COMPARISON ── */
+    #compare { background: var(--bg2); }
+    .compare-wrap { max-width: 820px; margin: 3.5rem auto 0; border-radius: 22px; overflow: hidden; border: 1px solid var(--border); }
+    .compare-head-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr; background: rgba(255,255,255,.03); border-bottom: 1px solid var(--border); }
+    .compare-head-cell { padding: 1rem 1.3rem; font-size: 0.82rem; font-weight: 800; text-align: center; }
+    .compare-head-cell.us { background: linear-gradient(135deg, rgba(123,47,255,.25), rgba(0,212,255,.1)); color: #fff; border-left: 1px solid rgba(123,47,255,.3); border-right: 1px solid rgba(123,47,255,.3); }
+    .compare-head-cell.them { color: var(--gray); }
+    .compare-head-cell.feature { text-align: left; color: var(--gray); font-weight: 600; }
+    .compare-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr; border-bottom: 1px solid rgba(255,255,255,.04); }
+    .compare-row:last-child { border-bottom: none; }
+    .compare-row:hover { background: rgba(255,255,255,.02); }
+    .compare-cell { padding: 0.9rem 1.3rem; font-size: 0.875rem; display: flex; align-items: center; }
+    .compare-cell.feature { color: var(--gray); font-weight: 500; }
+    .compare-cell.us { background: rgba(123,47,255,.07); border-left: 1px solid rgba(123,47,255,.2); border-right: 1px solid rgba(123,47,255,.2); color: var(--white); font-weight: 700; justify-content: center; text-align: center; }
+    .compare-cell.them { color: var(--gray); justify-content: center; text-align: center; }
+    .c-win { color: #00ff88; margin-right: 0.3rem; }
+    .c-loss { color: #ff2d78; margin-right: 0.3rem; }
+    .compare-note { text-align: center; margin-top: 1.5rem; font-size: 0.82rem; color: var(--gray); }
+
+    /* ── BUNDLES ── */
+    #bundles { background: var(--bg2); }
+    .bundles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3.5rem; }
+    .bundle-card { background: var(--card); border-radius: 24px; padding: 2rem; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid var(--border); }
+    .bundle-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 24px 24px 0 0; }
+    .bundle-card:hover { transform: translateY(-6px); }
+    .bundle-card.gaming::before { background: linear-gradient(90deg, var(--pink), var(--purple)); }
+    .bundle-card.gaming:hover { border-color: rgba(255,45,120,.4); box-shadow: 0 24px 70px rgba(0,0,0,.4), 0 0 25px rgba(255,45,120,.1); }
+    .bundle-card.smarthome::before { background: linear-gradient(90deg, var(--cyan), #00ff88); }
+    .bundle-card.smarthome:hover { border-color: rgba(0,212,255,.4); box-shadow: 0 24px 70px rgba(0,0,0,.4), 0 0 25px rgba(0,212,255,.1); }
+    .bundle-card.security::before { background: linear-gradient(90deg, var(--purple), var(--cyan)); }
+    .bundle-card.security:hover { border-color: rgba(123,47,255,.4); box-shadow: 0 24px 70px rgba(0,0,0,.4), 0 0 25px rgba(123,47,255,.1); }
+    .bundle-icon { font-size: 2.2rem; margin-bottom: 1rem; display: block; }
+    .bundle-name { font-size: 1.2rem; font-weight: 900; margin-bottom: 0.3rem; }
+    .bundle-tagline { font-size: 0.82rem; color: var(--gray); margin-bottom: 1.5rem; line-height: 1.5; }
+    .bundle-items { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .bundle-item { display: flex; align-items: center; gap: 0.65rem; font-size: 0.875rem; color: var(--gray); }
+    .bundle-check { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.58rem; font-weight: 900; flex-shrink: 0; color: #fff; }
+    .bundle-savings { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 800; padding: 0.3rem 0.85rem; border-radius: 100px; margin-bottom: 1.2rem; }
+    .bundle-cta { display: block; text-align: center; padding: 0.75rem 1.5rem; border-radius: 100px; font-size: 0.9rem; font-weight: 800; text-decoration: none; transition: opacity 0.2s, transform 0.2s; color: #fff; }
+    .bundle-cta:hover { opacity: 0.85; transform: scale(1.03); }
+
+    /* ── PAYMENT BADGES ── */
+    .payment-strip { margin-top: 2.5rem; text-align: center; }
+    .payment-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; }
+    .payment-badges { display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .pay-badge { padding: 0.5rem 1.1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; gap: 0.4rem; border: 1px solid; }
+    .pay-cashapp { background: rgba(0,212,61,.1); border-color: rgba(0,212,61,.3); color: #00D43D; }
+    .pay-zelle   { background: rgba(108,57,255,.1); border-color: rgba(108,57,255,.3); color: #9B7BFF; }
+    .pay-venmo   { background: rgba(0,136,255,.1); border-color: rgba(0,136,255,.3); color: #3D95CE; }
+    .pay-cash    { background: rgba(255,196,0,.1); border-color: rgba(255,196,0,.3); color: #FFD700; }
+
+    /* ── GOOGLE REVIEW CTA ── */
+    .review-cta-wrap { margin-top: 3.5rem; }
+    .review-cta { background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 2.5rem 2rem; max-width: 580px; margin: 0 auto; text-align: center; transition: border-color 0.2s; }
+    .review-cta:hover { border-color: rgba(255,215,0,.25); }
+    .review-stars { display: flex; justify-content: center; gap: 4px; margin-bottom: 1rem; }
+    .review-stars span { font-size: 1.5rem; }
+    .review-cta h3 { font-size: 1.15rem; font-weight: 900; margin-bottom: 0.5rem; }
+    .review-cta p { font-size: 0.875rem; color: var(--gray); margin-bottom: 1.5rem; line-height: 1.65; }
+
+    /* ── CERTS ── */
+    .certs-row { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 2rem; }
+    .cert-badge { display: flex; align-items: center; gap: 0.5rem; padding: 0.42rem 1rem; border-radius: 100px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); font-size: 0.78rem; font-weight: 700; color: var(--gray); transition: border-color 0.2s, color 0.2s; }
+    .cert-badge:hover { border-color: rgba(123,47,255,.5); color: var(--white); }
+    .cert-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── REFER A FRIEND ── */
+    #refer { background: var(--bg); padding: 0 6% 5rem; }
+    .refer-wrap { max-width: 760px; margin: 0 auto; background: linear-gradient(135deg, rgba(123,47,255,.12), rgba(0,212,255,.07)); border: 1px solid rgba(123,47,255,.3); border-radius: 24px; padding: 2.5rem 3rem; display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+    .refer-icon { font-size: 3rem; flex-shrink: 0; }
+    .refer-text h3 { font-size: 1.25rem; font-weight: 900; margin-bottom: 0.4rem; }
+    .refer-text p { font-size: 0.9rem; color: var(--gray); line-height: 1.65; }
+    .refer-reward { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.9rem; padding: 0.45rem 1.1rem; border-radius: 100px; background: linear-gradient(135deg, var(--purple), var(--cyan)); color: #fff; font-size: 0.82rem; font-weight: 800; }
+
+    /* ── SOCIAL LINKS ── */
+    .social-links { display: flex; gap: 0.65rem; }
+    .social-link { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); transition: background 0.2s, border-color 0.2s, transform 0.2s; text-decoration: none; }
+    .social-link:hover { background: rgba(123,47,255,.2); border-color: rgba(123,47,255,.5); transform: scale(1.12); }
+
+    /* ── STICKY MOBILE CTA ── */
+    #sticky-cta { display: none; position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 400; transition: opacity 0.3s; }
+    @media (max-width: 640px) { #sticky-cta { display: block; } }
+    .sticky-btn { display: flex; align-items: center; gap: 0.5rem; padding: 0.9rem 2rem; border-radius: 100px; background: linear-gradient(135deg, var(--purple), var(--cyan)); color: #fff; font-size: 0.95rem; font-weight: 800; text-decoration: none; box-shadow: 0 8px 35px rgba(123,47,255,.55), 0 2px 10px rgba(0,0,0,.4); white-space: nowrap; }
+
+    /* ── AI CHAT WIDGET ── */
+    #chat-fab { position: fixed; bottom: 2rem; left: 2rem; z-index: 500; width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--cyan)); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 28px rgba(123,47,255,.6); transition: transform 0.2s, box-shadow 0.2s; }
+    #chat-fab:hover { transform: scale(1.1); box-shadow: 0 10px 36px rgba(123,47,255,.75); }
+    #chat-fab svg { width: 26px; height: 26px; fill: #fff; }
+    #chat-fab .chat-badge { position: absolute; top: -2px; right: -2px; width: 16px; height: 16px; border-radius: 50%; background: var(--pink); border: 2px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 800; color: #fff; }
+    #chat-panel { position: fixed; bottom: 6.5rem; left: 2rem; z-index: 500; width: 340px; max-height: 520px; background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.6); transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none; transition: transform 0.25s ease, opacity 0.25s ease; }
+    #chat-panel.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
+    .chat-header { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.2rem; background: linear-gradient(135deg, rgba(123,47,255,.3), rgba(0,212,255,.15)); border-bottom: 1px solid var(--border); }
+    .chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--cyan)); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .chat-header-info { flex: 1; }
+    .chat-header-name { font-size: 0.9rem; font-weight: 800; color: #fff; }
+    .chat-header-status { font-size: 0.72rem; color: #00FF88; display: flex; align-items: center; gap: 0.3rem; }
+    .chat-header-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #00FF88; display: inline-block; }
+    .chat-close { background: none; border: none; color: var(--gray); font-size: 1.2rem; cursor: pointer; padding: 0.2rem; line-height: 1; }
+    .chat-close:hover { color: #fff; }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+    .chat-msg { max-width: 85%; padding: 0.65rem 0.9rem; border-radius: 14px; font-size: 0.85rem; line-height: 1.55; word-break: break-word; animation: msgPop 0.2s ease; }
+    @keyframes msgPop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .chat-msg.bot { background: rgba(255,255,255,.06); color: #e0e0e0; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .chat-msg.user { background: linear-gradient(135deg, var(--purple), rgba(0,212,255,.7)); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .chat-typing { display: flex; gap: 4px; align-items: center; padding: 0.65rem 0.9rem; background: rgba(255,255,255,.06); border-radius: 14px; border-bottom-left-radius: 4px; align-self: flex-start; }
+    .chat-typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--gray); animation: typeDot 1.2s infinite ease-in-out; }
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typeDot { 0%,60%,100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-5px); opacity: 1; } }
+    .chat-input-row { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--border); background: rgba(255,255,255,.02); }
+    #chat-input { flex: 1; background: rgba(255,255,255,.06); border: 1px solid var(--border); border-radius: 100px; padding: 0.55rem 1rem; font-size: 0.85rem; color: #fff; outline: none; font-family: inherit; transition: border-color 0.2s; }
+    #chat-input:focus { border-color: var(--purple); }
+    #chat-input::placeholder { color: var(--gray); }
+    #chat-send { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--cyan)); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: transform 0.15s; }
+    #chat-send:hover { transform: scale(1.1); }
+    #chat-send svg { width: 16px; height: 16px; fill: #fff; }
+    .chat-suggestions { display: flex; flex-wrap: wrap; gap: 0.4rem; padding: 0 1rem 0.75rem; }
+    .chat-pill { background: rgba(123,47,255,.15); border: 1px solid rgba(123,47,255,.3); color: var(--cyan); font-size: 0.75rem; padding: 0.3rem 0.75rem; border-radius: 100px; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+    .chat-pill:hover { background: rgba(123,47,255,.3); }
+    @media (max-width: 640px) {
+      #chat-panel { left: 0.75rem; right: 0.75rem; width: auto; bottom: 5.5rem; }
+      #chat-fab { bottom: 1.5rem; left: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── SCROLL PROGRESS ── -->
+<div id="progress-bar"></div>
+
+<!-- ── INTRO SPLASH ── -->
+<div id="splash">
+  <div class="splash-line" id="splash-line"></div>
+  <div class="splash-logo"><span class="grad">EZStream IT</span></div>
+  <div class="splash-sub">Tech Setup, Done Right.</div>
+</div>
+
+<!-- ── MOBILE MENU ── -->
+<div id="mobile-overlay">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="#services"     class="mob-link" onclick="closeMob()">Services</a>
+  <a href="#pricing"      class="mob-link" onclick="closeMob()">Pricing</a>
+  <a href="#testimonials" class="mob-link" onclick="closeMob()">Reviews</a>
+  <a href="#faq"          class="mob-link" onclick="closeMob()">FAQ</a>
+  <a href="#contact"      class="mob-link mob-cta" onclick="closeMob()">Book Now →</a>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">EZStream IT</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+  <button class="hamburger" onclick="openMob()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badges">
+      <div class="badge"><span class="badge-dot"></span> Freelance IT Services</div>
+      <div class="badge" style="background:rgba(0,255,136,.08);border-color:rgba(0,255,136,.35);color:#00FF88"><span class="badge-dot" style="background:#00ff88;box-shadow:0 0 6px #00ff88"></span> Now Accepting Clients</div>
+    </div>
+    <h1>Tech Setup,<br><span class="grad">Done Right.</span></h1>
+    <p class="hero-p">From custom gaming rigs to security cameras, streaming devices to new laptops — EZStream IT handles it all. Fast, friendly, and priced for real people.</p>
+    <div class="btns">
+      <a href="#contact" class="btn-p">Book a Service</a>
+      <a href="#services" class="btn-s">See What We Do</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </div>
+</section>
+
+<!-- ── CREDENTIALS STRIP ── -->
+<div id="creds">
+  <div class="creds-track">
+    <!-- duplicated for seamless loop -->
+    <div class="cred-item"><span class="cred-icon">🛡️</span><span class="cred-text">Cybersecurity Specialist</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">⚡</span><span class="cred-text">7 Years Experience</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">🖥️</span><span class="cred-text">Custom PC Builds</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">📡</span><span class="cred-text">Network & Camera Setup</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">🎬</span><span class="cred-text">Streaming Device Expert</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">🔐</span><span class="cred-text">Penetration Testing</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">💻</span><span class="cred-text">Mac & Windows</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">📱</span><span class="cred-text">iOS & Android</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">🌐</span><span class="cred-text">Remote & In-Person</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">💻</span><span class="cred-text">Website Design & Build</span></div><div class="cred-dot"></div>
+    <!-- duplicate -->
+    <div class="cred-item"><span class="cred-icon">🛡️</span><span class="cred-text">Cybersecurity Specialist</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">⚡</span><span class="cred-text">7 Years Experience</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">🖥️</span><span class="cred-text">Custom PC Builds</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">📡</span><span class="cred-text">Network & Camera Setup</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">🎬</span><span class="cred-text">Streaming Device Expert</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">🔐</span><span class="cred-text">Penetration Testing</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">💻</span><span class="cred-text">Mac & Windows</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">📱</span><span class="cred-text">iOS & Android</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">🌐</span><span class="cred-text">Remote & In-Person</span></div><div class="cred-dot"></div>
+    <div class="cred-item"><span class="cred-icon">💻</span><span class="cred-text">Website Design & Build</span></div><div class="cred-dot"></div>
+  </div>
+</div>
+
+<!-- ── SERVICE AREA ── -->
+<div id="service-area">
+  <div class="area-item"><span>📍</span><span>In-person available — contact for location</span></div>
+  <div class="area-divider"></div>
+  <div class="area-item"><span>🌐</span><span>Remote sessions worldwide</span></div>
+  <div class="area-divider"></div>
+  <div class="area-item"><span>⚡</span><span>Under 24h response time</span></div>
+  <div class="area-divider"></div>
+  <div class="area-item"><span>💬</span><span>Text &amp; WhatsApp friendly</span></div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="s-head">
+    <div class="s-label">What We Do</div>
+    <h2 class="s-title">Every setup, <span class="grad">covered.</span></h2>
+    <p class="s-sub">Professional tech setup for your home or office. Contact us for a custom quote on any service.</p>
+  </div>
+  <div class="grid-6">
+
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-pc">
+        <div class="pc-tower">
+          <div class="pc-rgb-strip"></div>
+          <div class="pc-fan"></div><div class="pc-fan pc-fan2"></div>
+          <div class="pc-power"></div><div class="pc-glow"></div>
+        </div>
+        <div class="pc-peripherals">
+          <div class="pc-monitor"><div class="pc-screen-content">GAMING</div></div>
+          <div class="pc-keyboard">
+            <div class="key" style="background:rgba(255,45,120,.6)"></div>
+            <div class="key"></div><div class="key"></div><div class="key"></div>
+            <div class="key" style="background:rgba(0,212,255,.6)"></div>
+            <div class="key"></div><div class="key"></div>
+            <div class="key" style="background:rgba(123,47,255,.6)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(255,45,120,.2),rgba(255,45,120,.04))">🖥️</div>
+        <h3>Gaming PC Builds</h3>
+        <p>Custom-built rigs tailored to your budget and game library. Part sourcing, assembly, OS install, driver setup, and full benchmark testing included.</p>
+        <span class="svc-tag" style="background:rgba(255,45,120,.12);color:#FF2D78">Most Popular</span>
+      </div>
+    </div>
+
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-cam">
+        <div class="cam-grid">
+          <div class="cam-feed"><div class="cam-rec"></div><div class="cam-scanline"></div><div class="cam-silhouette"></div><div class="cam-label">CAM 1</div></div>
+          <div class="cam-feed"><div class="cam-rec" style="animation-delay:.3s"></div><div class="cam-scanline" style="animation-delay:.5s"></div><div class="cam-label">CAM 2</div></div>
+          <div class="cam-feed"><div class="cam-rec" style="animation-delay:.6s"></div><div class="cam-scanline" style="animation-delay:1s"></div><div class="cam-silhouette" style="opacity:.5;width:14px;height:20px"></div><div class="cam-label">CAM 3</div></div>
+          <div class="cam-feed"><div class="cam-rec" style="background:#ffa500;box-shadow:0 0 5px #ffa500;animation-delay:.8s"></div><div class="cam-label">CAM 4</div></div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(123,47,255,.2),rgba(123,47,255,.04))">📡</div>
+        <h3>Camera Setup</h3>
+        <p>Home and business security camera installation. Wired or wireless, indoor or outdoor. Full app setup and remote viewing configuration.</p>
+        <span class="svc-tag" style="background:rgba(123,47,255,.12);color:#A87FFF">Home Security</span>
+      </div>
+    </div>
+
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-tv">
+        <div class="tv-frame">
+          <div class="tv-screen">
+            <div class="tv-play-btn">▶</div>
+            <div class="tv-poster-right"></div>
+            <div class="tv-row">
+              <div class="tv-thumb" style="background:linear-gradient(135deg,#7b2fff,#ff2d78)"></div>
+              <div class="tv-thumb" style="background:linear-gradient(135deg,#00d4ff,#7b2fff)"></div>
+              <div class="tv-thumb" style="background:linear-gradient(135deg,#ff2d78,#ffa500)"></div>
+              <div class="tv-thumb" style="background:linear-gradient(135deg,#00ff88,#00d4ff)"></div>
+            </div>
+            <div class="tv-content-bar">
+              <div class="tv-title">Smart TV — Fully Configured</div>
+              <div class="tv-meta">Netflix · Disney+ · HBO · Prime · Apple TV+</div>
+            </div>
+          </div>
+        </div>
+        <div class="tv-stand"></div><div class="tv-base"></div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.04))">📺</div>
+        <h3>TV Setup</h3>
+        <p>Smart TV configuration, app installs, streaming account setup, and picture calibration. We make your TV actually smart.</p>
+        <span class="svc-tag" style="background:rgba(0,212,255,.12);color:var(--cyan)">Smart Home</span>
+      </div>
+    </div>
+
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-phone">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="phone-notch"></div>
+            <div class="phone-status-bar"><span>9:41</span><span>●●●</span></div>
+            <div class="phone-app-grid">
+              <div class="phone-app" style="background:rgba(229,9,20,.3)">📺</div>
+              <div class="phone-app" style="background:rgba(0,168,224,.3)">📷</div>
+              <div class="phone-app" style="background:rgba(0,255,136,.3)">💬</div>
+              <div class="phone-app" style="background:rgba(123,47,255,.3)">🎵</div>
+              <div class="phone-app" style="background:rgba(255,165,0,.3)">📧</div>
+              <div class="phone-app" style="background:rgba(0,212,255,.3)">🌐</div>
+              <div class="phone-app" style="background:rgba(255,45,120,.3)">📸</div>
+              <div class="phone-app" style="background:rgba(28,231,131,.3)">🗺️</div>
+              <div class="phone-app" style="background:rgba(255,255,255,.08)">⚙️</div>
+            </div>
+            <div class="phone-home-bar"></div>
+          </div>
+        </div>
+        <div class="phone-frame phone-frame-2">
+          <div class="phone-screen" style="background:linear-gradient(135deg,#0d1f12,#001a0d)">
+            <div class="phone-notch"></div>
+            <div style="padding:6px;font-size:6px;color:rgba(0,255,136,.7);font-weight:700">Data Transfer</div>
+            <div style="padding:0 6px">
+              <div style="height:3px;border-radius:2px;background:rgba(0,255,136,.2);margin-bottom:3px"><div style="height:100%;width:72%;border-radius:2px;background:#00ff88"></div></div>
+              <div style="font-size:5px;color:rgba(255,255,255,.4)">72% — 4.2 GB copied</div>
+            </div>
+            <div class="phone-home-bar"></div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(0,255,136,.2),rgba(0,255,136,.04))">📱</div>
+        <h3>Phone Setup</h3>
+        <p>New phone setup, data transfer from old device, app configuration, backup solutions, and parental controls. iPhone and Android both supported.</p>
+        <span class="svc-tag" style="background:rgba(0,255,136,.12);color:#00FF88">iOS & Android</span>
+      </div>
+    </div>
+
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-laptop">
+        <div class="laptop-screen">
+          <div class="laptop-display">
+            <div class="laptop-menubar">
+              <div class="laptop-dot" style="background:#FF5F57"></div>
+              <div class="laptop-dot" style="background:#FFBD2E"></div>
+              <div class="laptop-dot" style="background:#27C93F"></div>
+            </div>
+            <div class="laptop-content">
+              <div class="laptop-sidebar">
+                <div class="sidebar-item active"></div><div class="sidebar-item"></div>
+                <div class="sidebar-item" style="width:70%"></div><div class="sidebar-item"></div>
+                <div class="sidebar-item" style="width:85%"></div>
+              </div>
+              <div class="laptop-main">
+                <div class="code-line orange" style="width:60%"></div>
+                <div class="code-line" style="width:90%;margin-left:8px"></div>
+                <div class="code-line cyan" style="width:75%;margin-left:8px"></div>
+                <div class="code-line" style="width:50%;margin-left:8px"></div>
+                <div class="code-line purple" style="width:80%;margin-left:8px"></div>
+                <div class="code-line" style="width:65%;margin-left:8px"></div>
+                <div class="code-line orange" style="width:45%"></div>
+                <div class="code-line" style="width:88%;margin-left:8px"></div>
+                <div class="code-line cyan" style="width:55%;margin-left:8px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="laptop-base"></div>
+        <div class="laptop-trackpad"><div class="trackpad-surface"></div></div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(255,165,0,.2),rgba(255,165,0,.04))">💻</div>
+        <h3>Laptop Setup</h3>
+        <p>Out-of-the-box configuration, software installs, security setup, data migration from old machine, and performance tuning.</p>
+        <span class="svc-tag" style="background:rgba(255,165,0,.12);color:#FFA500">Mac & Windows</span>
+      </div>
+    </div>
+
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-stremio">
+        <div class="stremio-mini-tv">
+          <div class="stremio-mini-nav">
+            <span class="stremio-logo-mini">STREMIO</span>
+            <div class="stremio-nav-dot"></div><div class="stremio-nav-dot"></div><div class="stremio-nav-dot"></div>
+          </div>
+          <div class="stremio-mini-hero">
+            <div class="stremio-mini-poster"></div>
+            <div>
+              <div class="stremio-mini-title">Now Streaming</div>
+              <div class="stremio-mini-meta">HD · Real-Debrid · 12+ Addons</div>
+            </div>
+          </div>
+          <div class="stremio-mini-row">
+            <div class="stremio-mini-thumb" style="background:linear-gradient(135deg,#7b2fff,#ff2d78)"></div>
+            <div class="stremio-mini-thumb" style="background:linear-gradient(135deg,#00d4ff,#7b2fff)"></div>
+            <div class="stremio-mini-thumb" style="background:linear-gradient(135deg,#ff2d78,#ffa500)"></div>
+            <div class="stremio-mini-thumb" style="background:linear-gradient(135deg,#00ff88,#00d4ff)"></div>
+            <div class="stremio-mini-thumb" style="background:linear-gradient(135deg,#ffa500,#ff2d78)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(123,47,255,.2),rgba(0,212,255,.04))">🎬</div>
+        <h3>Stremio / Streaming Device</h3>
+        <p>Full Stremio setup on Android TV, Firestick, or Google Onn. Addon installation with Real-Debrid pre-configured — no manual setup required.</p>
+        <span class="svc-tag" style="background:linear-gradient(135deg,rgba(123,47,255,.2),rgba(0,212,255,.2));color:var(--cyan)">EZStream Special ✦</span>
+      </div>
+    </div>
+
+    <!-- Website Design & Build -->
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-web">
+        <div class="browser-frame">
+          <div class="browser-bar">
+            <span class="browser-dot" style="background:#FF5F57"></span>
+            <span class="browser-dot" style="background:#FFBD2E"></span>
+            <span class="browser-dot" style="background:#27C93F"></span>
+            <div class="browser-url"><span class="browser-url-text">yoursite.com</span></div>
+          </div>
+          <div class="browser-body">
+            <div class="web-hero-mock">
+              <div class="web-logo-mock"></div>
+              <div class="web-nav-dots">
+                <div class="web-nav-dot"></div>
+                <div class="web-nav-dot"></div>
+                <div class="web-nav-dot"></div>
+                <div class="web-nav-cta"></div>
+              </div>
+            </div>
+            <div class="web-content">
+              <div class="web-headline"></div>
+              <div class="web-headline-2"></div>
+              <div class="web-subtext">
+                <div class="web-line" style="width:95%"></div>
+                <div class="web-line" style="width:80%"></div>
+                <div class="web-line" style="width:60%"></div>
+              </div>
+              <div class="web-cards-row">
+                <div class="web-card-mock"></div>
+                <div class="web-card-mock"></div>
+                <div class="web-card-mock"></div>
+              </div>
+              <div class="web-typing">
+                <div class="web-line" style="width:40%"></div>
+                <div class="web-cursor"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(123,47,255,.04))">🌐</div>
+        <h3>Website Design &amp; Build</h3>
+        <p>Custom websites built from scratch — clean, fast, and mobile-ready. Portfolio sites, business pages, landing pages, and more. No templates, no fluff.</p>
+        <span class="svc-tag" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(123,47,255,.15));color:var(--cyan)">Custom Built ✦</span>
+      </div>
+    </div>
+
+    <!-- Virus & Malware Removal -->
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-virus">
+        <div class="virus-terminal">
+          <div class="term-bar">
+            <span class="term-dot" style="background:#FF5F57"></span>
+            <span class="term-dot" style="background:#FFBD2E"></span>
+            <span class="term-dot" style="background:#27C93F"></span>
+            <span style="font-size:6px;color:rgba(255,255,255,.35);margin-left:6px;font-family:monospace">scan.sh</span>
+          </div>
+          <div class="term-body">
+            <div class="term-line"><span class="term-ok">[✓]</span> Scanning system files...</div>
+            <div class="term-line"><span class="term-warn">[!]</span> Threat found: Trojan.Gen</div>
+            <div class="term-line"><span class="term-ok">[→]</span> Quarantining... <span class="term-cursor">█</span></div>
+            <div class="term-line"><span class="term-ok">[✓]</span> System clean &amp; secured</div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(255,45,120,.2),rgba(255,45,120,.04))">🦠</div>
+        <h3>Virus &amp; Malware Removal</h3>
+        <p>Full system scan, threat removal, browser cleanup, and security hardening. We'll get your PC clean and locked down — fast.</p>
+        <span class="svc-tag" style="background:rgba(255,45,120,.12);color:#FF2D78">PC Security</span>
+      </div>
+    </div>
+
+    <!-- Home Network Setup -->
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-net">
+        <div class="net-router">
+          <div class="router-body">
+            <span class="router-antenna"></span>
+            <span class="router-antenna right"></span>
+            <div class="router-light-main"></div>
+            <div class="router-lights-row">
+              <div class="rl" style="animation-delay:.2s"></div>
+              <div class="rl" style="animation-delay:.4s"></div>
+              <div class="rl" style="animation-delay:.6s"></div>
+            </div>
+          </div>
+          <div class="wifi-rings">
+            <div class="wifi-ring wr1"></div>
+            <div class="wifi-ring wr2"></div>
+            <div class="wifi-ring wr3"></div>
+            <div class="wifi-dot"></div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.04))">🌐</div>
+        <h3>Home Network Setup</h3>
+        <p>Router configuration, WiFi coverage optimization, mesh network setup, and device connectivity. Faster, more reliable internet throughout your home.</p>
+        <span class="svc-tag" style="background:rgba(0,212,255,.12);color:var(--cyan)">Networking</span>
+      </div>
+    </div>
+
+    <!-- Security Audit -->
+    <div class="svc-card fade-up">
+      <div class="svc-visual visual-sec">
+        <div class="sec-shield">
+          <div class="shield-wrap">
+            <div class="shield-ring"></div>
+            <div class="shield-ring"></div>
+            <div class="shield-svg">🔒</div>
+          </div>
+          <div class="sec-checks">
+            <div class="sec-check"><div class="sc-dot"></div><span class="sc-text">2FA Configured</span></div>
+            <div class="sec-check"><div class="sc-dot" style="animation-delay:.5s"></div><span class="sc-text">Passwords Secured</span></div>
+            <div class="sec-check"><div class="sc-dot" style="animation-delay:1s"></div><span class="sc-text">Privacy Hardened</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="svc-body">
+        <div class="svc-icon" style="background:linear-gradient(135deg,rgba(123,47,255,.2),rgba(0,255,136,.04))">🔒</div>
+        <h3>Security Audit</h3>
+        <p>Password manager setup, account security review, two-factor authentication, and privacy hardening across all your devices.</p>
+        <span class="svc-tag" style="background:linear-gradient(135deg,rgba(123,47,255,.15),rgba(0,212,255,.1));color:#A87FFF">Cybersecurity</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── GALLERY / PORTFOLIO ── -->
+<section id="gallery">
+  <div class="s-head fade-up" style="text-align:center">
+    <div class="s-label">Our Work</div>
+    <h2 class="s-title">Real setups, <span class="grad">done right.</span></h2>
+    <p class="s-sub" style="margin:0 auto">Every build is fully configured, tested, and cable-managed before we call it done. No shortcuts.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item fade-up">
+      <img src="setup1.jpg" alt="Triple monitor gaming setup with RGB lighting by EZStream IT">
+      <div class="gallery-caption">
+        <h4>Triple Monitor Gaming Build</h4>
+        <p>Custom gaming rig · RGB lighting · Fully configured</p>
+      </div>
+    </div>
+    <div class="gallery-item fade-up">
+      <img src="setup2.jpg" alt="Dual monitor workstation with custom PC tower by EZStream IT">
+      <div class="gallery-caption">
+        <h4>Dual Monitor Workstation</h4>
+        <p>Custom PC tower · Dual display · Ambient LED</p>
+      </div>
+    </div>
+  </div>
+  <p class="gallery-more">More builds coming soon — follow for updates.</p>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-wrap">
+    <div class="about-photo-wrap fade-up">
+      <div class="about-photo-frame">
+        <img src="james.jpg" alt="James E — EZStream IT">
+      </div>
+      <div class="about-badge-float">
+        <span>7</span>
+        <span>Years</span>
+      </div>
+      <div class="about-name-card">
+        <h3><span class="grad">James E.</span></h3>
+        <p>IT Specialist & Cybersecurity Professional</p>
+      </div>
+    </div>
+    <div class="about-content fade-up" style="padding-top:1rem">
+      <div class="s-label">About Me</div>
+      <h2 class="s-title">The person behind <span class="grad">the setup.</span></h2>
+      <p class="about-bio">Hey, I'm <strong>James E.</strong> — a freelance IT specialist and cybersecurity professional with <strong>7 years of hands-on experience</strong> making technology work for real people.</p>
+      <p class="about-bio">I got my start in <strong>enterprise IT and cybersecurity</strong>, where I learned how systems get attacked, how they get defended, and — most importantly — how to set them up right the first time. That same attention to detail and security mindset is something I bring to every client setup, whether it's a gaming PC build, a home camera system, or a full streaming device configuration.</p>
+      <p class="about-bio">I started EZStream IT because I saw too many people overpaying for simple setups or getting it done wrong. <strong>I keep it fast, honest, and done right.</strong> No fluff, no upselling — just solid tech support from someone who actually knows what they're doing.</p>
+      <div class="certs-row">
+        <div class="cert-badge"><span class="cert-dot" style="background:#7B2FFF"></span> Enterprise IT Background</div>
+        <div class="cert-badge"><span class="cert-dot" style="background:#00D4FF"></span> Cybersecurity Specialist</div>
+        <div class="cert-badge"><span class="cert-dot" style="background:#FF2D78"></span> Penetration Testing</div>
+        <div class="cert-badge"><span class="cert-dot" style="background:#00FF88"></span> 7+ Years Experience</div>
+        <div class="cert-badge"><span class="cert-dot" style="background:#FFA500"></span> Mac &amp; Windows Expert</div>
+        <!-- Add real certifications below as you earn them -->
+      </div>
+      <div class="about-tags">
+        <span class="about-tag">🔐 Cybersecurity</span>
+        <span class="about-tag">🖥️ PC Builds</span>
+        <span class="about-tag">📡 Network Setup</span>
+        <span class="about-tag">🎬 Streaming Devices</span>
+        <span class="about-tag">📷 Security Cameras</span>
+        <span class="about-tag">💻 Mac & Windows</span>
+        <span class="about-tag">📱 iOS & Android</span>
+        <span class="about-tag">🛡️ Penetration Testing</span>
+      </div>
+      <div class="about-stats">
+        <div class="about-stat">
+          <div class="about-stat-num" data-target="7" data-suffix="+">0</div>
+          <div class="about-stat-label">Years Experience</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num" data-target="50" data-suffix="+">0</div>
+          <div class="about-stat-label">Setups Completed</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num" data-target="24" data-suffix="h">0</div>
+          <div class="about-stat-label">Response Time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPARISON ── -->
+<section id="compare">
+  <div class="s-head fade-up" style="text-align:center">
+    <div class="s-label">Why EZStream IT</div>
+    <h2 class="s-title">Us vs. <span class="grad">the big box stores.</span></h2>
+    <p class="s-sub" style="margin:0 auto">See why clients choose EZStream IT over Geek Squad and Best Buy — every single time.</p>
+  </div>
+  <div class="compare-wrap fade-up">
+    <div class="compare-head-row">
+      <div class="compare-head-cell feature"></div>
+      <div class="compare-head-cell us">⚡ EZStream IT</div>
+      <div class="compare-head-cell them">Geek Squad / Best Buy</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">💰 Pricing</div>
+      <div class="compare-cell us"><span class="c-win">✓</span> Fair, transparent rates</div>
+      <div class="compare-cell them"><span class="c-loss">✗</span> $100–$300+ hidden fees</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">⚡ Response Time</div>
+      <div class="compare-cell us"><span class="c-win">✓</span> Under 24 hours</div>
+      <div class="compare-cell them"><span class="c-loss">✗</span> Days to weeks</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">🌐 Remote Support</div>
+      <div class="compare-cell us"><span class="c-win">✓</span> Full remote service</div>
+      <div class="compare-cell them"><span class="c-loss">✗</span> Drop-off only</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">🎬 Stremio / Streaming Setup</div>
+      <div class="compare-cell us"><span class="c-win">✓</span> Specialist service</div>
+      <div class="compare-cell them"><span class="c-loss">✗</span> Not offered</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">💻 Website Building</div>
+      <div class="compare-cell us"><span class="c-win">✓</span> Custom built for you</div>
+      <div class="compare-cell them"><span class="c-loss">✗</span> Not offered</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">🤝 Personal Service</div>
+      <div class="compare-cell us"><span class="c-win">✓</span> You talk directly to James</div>
+      <div class="compare-cell them"><span class="c-loss">✗</span> Random rotating techs</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-cell feature">🔒 Satisfaction Guarantee</div>
+      <div class="compare-cell us"><span class="c-win">✓</span> We fix it until it's right</div>
+      <div class="compare-cell them"><span class="c-loss">✗</span> Pay again for revisits</div>
+    </div>
+  </div>
+  <p class="compare-note fade-up">No upselling. No appointment queues. No strangers handling your hardware.</p>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section id="testimonials">
+  <div class="s-head" style="text-align:center">
+    <div class="s-label" style="color:var(--pink)">Reviews</div>
+    <h2 class="s-title">What clients <span class="grad">are saying.</span></h2>
+    <p class="s-sub" style="margin:0 auto">Real feedback from real people who got their tech handled right.</p>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="testi-card fade-up">
+      <span class="testi-badge" style="background:rgba(255,45,120,.12);color:#FF2D78">Gaming PC</span>
+      <div class="testi-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="testi-quote">James built my entire gaming setup from scratch — picked all the parts within my budget, assembled everything, installed Windows and all my drivers. The whole thing runs perfectly. Couldn't be happier.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,rgba(255,45,120,.3),rgba(255,45,120,.1));border:1px solid rgba(255,45,120,.3)">M</div>
+        <div>
+          <div class="testi-name">Marcus T.</div>
+          <div class="testi-service">Custom Gaming PC Build</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card fade-up">
+      <span class="testi-badge" style="background:rgba(123,47,255,.12);color:#A87FFF">Streaming</span>
+      <div class="testi-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="testi-quote">Had everything streaming in under an hour. James set up Stremio on my Firestick with all the addons already configured — I literally didn't have to do anything. The picture quality is insane.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,rgba(123,47,255,.3),rgba(123,47,255,.1));border:1px solid rgba(123,47,255,.3)">L</div>
+        <div>
+          <div class="testi-name">Lisa R.</div>
+          <div class="testi-service">Stremio Streaming Setup</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card fade-up">
+      <span class="testi-badge" style="background:rgba(0,212,255,.12);color:var(--cyan)">Cameras</span>
+      <div class="testi-stars">
+        <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+      </div>
+      <p class="testi-quote">Got 4 cameras set up at my house, all connected to my phone so I can see everything remotely. James explained everything clearly and made sure I knew how to use it before he left. Super professional.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:linear-gradient(135deg,rgba(0,212,255,.3),rgba(0,212,255,.1));border:1px solid rgba(0,212,255,.3)">D</div>
+        <div>
+          <div class="testi-name">David K.</div>
+          <div class="testi-service">Home Camera System</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="review-cta-wrap fade-up">
+    <div class="review-cta">
+      <div class="review-stars">
+        <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+      </div>
+      <h3>Happy with your service?</h3>
+      <p>A quick Google review helps other people find EZStream IT and means the world to a small business. Takes 30 seconds.</p>
+      <!-- Replace # with your Google Business review link -->
+      <a href="#" target="_blank" rel="noopener" class="btn-p" style="display:inline-block">Leave a Google Review →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section id="pricing">
+  <div class="s-head fade-up" style="text-align:center">
+    <div class="s-label">Transparent Pricing</div>
+    <h2 class="s-title">Fair rates, <span class="grad">no surprises.</span></h2>
+    <p class="s-sub" style="margin:0 auto">Starting ranges for common services. Final quotes are based on your specific setup — always transparent, no hidden fees.</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="price-card featured fade-up">
+      <div class="price-badge">Most Popular</div>
+      <span class="price-icon">🖥️</span>
+      <div class="price-service">Gaming PC Build</div>
+      <div class="price-range">$100–$200</div>
+      <div class="price-note">Labor only — parts sourced separately. Includes assembly, OS install, drivers, and benchmark testing.</div>
+    </div>
+    <div class="price-card fade-up">
+      <span class="price-icon">📡</span>
+      <div class="price-service">Camera Setup</div>
+      <div class="price-range">$75–$150</div>
+      <div class="price-note">Varies by number of cameras. Includes app setup and remote viewing configuration.</div>
+    </div>
+    <div class="price-card fade-up">
+      <span class="price-icon">📺</span>
+      <div class="price-service">TV Setup</div>
+      <div class="price-range">From $50</div>
+      <div class="price-note">Smart TV configuration, app installs, and streaming account setup.</div>
+    </div>
+    <div class="price-card fade-up">
+      <span class="price-icon">🎬</span>
+      <div class="price-service">Stremio Setup</div>
+      <div class="price-range">From $40</div>
+      <div class="price-note">Full addon install with Real-Debrid pre-configured. Remote or in-person.</div>
+    </div>
+    <div class="price-card fade-up">
+      <span class="price-icon">📱</span>
+      <div class="price-service">Phone Setup</div>
+      <div class="price-range">$40–$75</div>
+      <div class="price-note">New device setup, data transfer, app config, and backup solutions.</div>
+    </div>
+    <div class="price-card fade-up">
+      <span class="price-icon">💻</span>
+      <div class="price-service">Laptop Setup</div>
+      <div class="price-range">$50–$100</div>
+      <div class="price-note">Out-of-box config, software installs, security setup, and data migration.</div>
+    </div>
+    <div class="price-card fade-up">
+      <span class="price-icon">🦠</span>
+      <div class="price-service">Virus Removal</div>
+      <div class="price-range">$60–$100</div>
+      <div class="price-note">Full scan, malware removal, browser cleanup, and security hardening.</div>
+    </div>
+    <div class="price-card fade-up">
+      <span class="price-icon">🌐</span>
+      <div class="price-service">Network Setup</div>
+      <div class="price-range">$75–$150</div>
+      <div class="price-note">Router config, WiFi optimization, and mesh network setup.</div>
+    </div>
+    <div class="price-card fade-up">
+      <span class="price-icon">🔒</span>
+      <div class="price-service">Security Audit</div>
+      <div class="price-range">$50–$100</div>
+      <div class="price-note">Password manager setup, 2FA config, and privacy hardening across devices.</div>
+    </div>
+    <div class="price-card fade-up" style="border-color:rgba(0,212,255,.35);box-shadow:0 0 25px rgba(0,212,255,.1)">
+      <div class="price-badge" style="background:linear-gradient(135deg,var(--cyan),var(--purple))">New</div>
+      <span class="price-icon">💻</span>
+      <div class="price-service">Website Design &amp; Build</div>
+      <div class="price-range">Custom Quote</div>
+      <div class="price-note">Pricing depends on scope — contact us for a free quote. Portfolio sites, business pages, and landing pages available.</div>
+    </div>
+  </div>
+  <p class="pricing-note">All prices are <strong>labor only</strong> unless noted. Free 15-min consultation available. <strong>Bundle discounts</strong> when booking multiple services.</p>
+  <div class="payment-strip fade-up">
+    <div class="payment-label">We accept</div>
+    <div class="payment-badges">
+      <div class="pay-badge pay-cashapp">$ Cash App</div>
+      <div class="pay-badge pay-zelle">⚡ Zelle</div>
+      <div class="pay-badge pay-venmo">🅥 Venmo</div>
+      <div class="pay-badge pay-cash">💵 Cash</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BUNDLES ── -->
+<section id="bundles">
+  <div class="s-head fade-up" style="text-align:center">
+    <div class="s-label">Save More</div>
+    <h2 class="s-title">Bundle &amp; <span class="grad">save.</span></h2>
+    <p class="s-sub" style="margin:0 auto">Book multiple services together and get a discount. Perfect if you want the full setup done right from day one.</p>
+  </div>
+  <div class="bundles-grid">
+
+    <div class="bundle-card gaming fade-up">
+      <span class="bundle-icon">🎮</span>
+      <div class="bundle-name">Gaming Bundle</div>
+      <div class="bundle-tagline">Everything you need for the ultimate gaming setup — built, connected, and streaming.</div>
+      <div class="bundle-items">
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--pink),var(--purple))">✓</div> Custom Gaming PC Build</div>
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--pink),var(--purple))">✓</div> Home Network Setup</div>
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--pink),var(--purple))">✓</div> Stremio / Streaming Device</div>
+      </div>
+      <div class="bundle-savings" style="background:rgba(255,45,120,.12);color:#FF2D78;border:1px solid rgba(255,45,120,.25)">🔥 Bundle discount applied</div>
+      <a href="#contact" class="bundle-cta" style="background:linear-gradient(135deg,var(--pink),var(--purple))">Get This Bundle →</a>
+    </div>
+
+    <div class="bundle-card smarthome fade-up">
+      <span class="bundle-icon">🏠</span>
+      <div class="bundle-name">Smart Home Bundle</div>
+      <div class="bundle-tagline">Turn your home into a smart, secure, fully-connected space in one visit.</div>
+      <div class="bundle-items">
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--cyan),#00ff88)">✓</div> Security Camera Setup</div>
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--cyan),#00ff88)">✓</div> Smart TV Configuration</div>
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--cyan),#00ff88)">✓</div> Home Network Setup</div>
+      </div>
+      <div class="bundle-savings" style="background:rgba(0,212,255,.1);color:var(--cyan);border:1px solid rgba(0,212,255,.25)">💡 Bundle discount applied</div>
+      <a href="#contact" class="bundle-cta" style="background:linear-gradient(135deg,var(--cyan),#00ff88);color:#07070F">Get This Bundle →</a>
+    </div>
+
+    <div class="bundle-card security fade-up">
+      <span class="bundle-icon">🔐</span>
+      <div class="bundle-name">Security Bundle</div>
+      <div class="bundle-tagline">Full protection across all your devices — cleaned, hardened, and locked down.</div>
+      <div class="bundle-items">
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--purple),var(--cyan))">✓</div> Virus &amp; Malware Removal</div>
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--purple),var(--cyan))">✓</div> Security Audit &amp; 2FA Setup</div>
+        <div class="bundle-item"><div class="bundle-check" style="background:linear-gradient(135deg,var(--purple),var(--cyan))">✓</div> Network Hardening</div>
+      </div>
+      <div class="bundle-savings" style="background:rgba(123,47,255,.12);color:#A87FFF;border:1px solid rgba(123,47,255,.3)">🛡️ Bundle discount applied</div>
+      <a href="#contact" class="bundle-cta" style="background:linear-gradient(135deg,var(--purple),var(--cyan))">Get This Bundle →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── STREMIO SECTION ── -->
+<section id="stremio">
+  <div class="stremio-header fade-up">
+    <div class="s-label">EZStream Special</div>
+    <h2 class="s-title">Everything you can stream, <span class="grad">all in one place.</span></h2>
+    <p class="s-sub">We set up Stremio with every major streaming catalog and Real-Debrid — so you get content from Netflix, HBO, Apple TV+ and more, all searchable in one app.</p>
+  </div>
+  <div class="stremio-panels">
+    <div class="tv-mockup-wrap fade-up">
+      <div class="tv-mockup-label">Stremio Homepage</div>
+      <div class="stremio-ui">
+        <div class="stremio-nav">
+          <span class="stremio-nav-logo">⬡ STREMIO</span>
+          <div class="stremio-nav-items">
+            <span class="stremio-nav-item active">Discover</span>
+            <span class="stremio-nav-item">Board</span>
+            <span class="stremio-nav-item">Library</span>
+            <span class="stremio-nav-item">Search</span>
+          </div>
+          <div class="stremio-search">🔍 Search movies, shows...</div>
+        </div>
+        <div class="stremio-hero">
+          <div class="stremio-hero-bg"></div>
+          <div class="stremio-hero-poster"><div class="poster-inner" style="background:linear-gradient(160deg,#200040,#0a0020)">🦇</div></div>
+          <div class="stremio-hero-info">
+            <div class="hero-eyebrow">Featured Tonight</div>
+            <div class="hero-title">The Dark Knight</div>
+            <div class="hero-meta">2008 · PG-13 · 2h 32m · ★ 9.0 · Action, Crime</div>
+            <div class="hero-btns">
+              <button class="hero-btn hero-btn-p">▶ Watch Now</button>
+              <button class="hero-btn hero-btn-s">+ Watchlist</button>
+            </div>
+          </div>
+        </div>
+        <div class="stremio-row-label">🔥 Trending Now</div>
+        <div class="stremio-poster-row">
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#1a0040,#3d0080)">🌌</div><div class="s-poster-overlay"><div class="s-poster-title">Dune: Part Two</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#2d0010,#800020)">🐉</div><div class="s-poster-overlay"><div class="s-poster-title">House of the Dragon</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#1a1a00,#404000)">🍳</div><div class="s-poster-overlay"><div class="s-poster-title">The Bear</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#000a20,#001440)">🕷️</div><div class="s-poster-overlay"><div class="s-poster-title">Wednesday</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#200020,#400060)">🤖</div><div class="s-poster-overlay"><div class="s-poster-title">Severance</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#001a0d,#003320)">🌿</div><div class="s-poster-overlay"><div class="s-poster-title">Shogun</div></div></div>
+        </div>
+        <div class="stremio-row-label">🆕 New Releases</div>
+        <div class="stremio-poster-row" style="padding-bottom:14px">
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#0a1a2e,#1a2e40)">⚡</div><div class="s-poster-overlay"><div class="s-poster-title">Oppenheimer</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#2e0a0a,#400000)">🩸</div><div class="s-poster-overlay"><div class="s-poster-title">True Detective</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#001428,#002040)">🚀</div><div class="s-poster-overlay"><div class="s-poster-title">Foundation</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#0d0d0d,#1a0a28)">🎭</div><div class="s-poster-overlay"><div class="s-poster-title">The Last of Us</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#1a0028,#2e004d)">👑</div><div class="s-poster-overlay"><div class="s-poster-title">The Crown</div></div></div>
+          <div class="s-poster"><div class="s-poster-inner" style="background:linear-gradient(135deg,#001a00,#003300)">💊</div><div class="s-poster-overlay"><div class="s-poster-title">Succession</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="catalog-panel fade-up">
+      <div class="tv-mockup-label">Your Streaming Catalogs</div>
+      <div style="font-size:0.8rem;color:var(--gray);margin-bottom:0.5rem">All catalogs accessible inside one app — fully searchable.</div>
+      <div class="catalog-grid">
+        <div class="catalog-tile cat-netflix"><span style="font-size:1.4rem;font-weight:900;color:#E50914;font-family:serif">N</span><div class="catalog-tile-name">Netflix</div><div class="catalog-tile-count">Movies & Series</div></div>
+        <div class="catalog-tile cat-hbo"><span style="font-size:1rem;font-weight:900;color:#CC5CE8">HBO</span><div class="catalog-tile-name">HBO Max</div><div class="catalog-tile-count">Originals & More</div></div>
+        <div class="catalog-tile cat-apple"><span style="font-size:1.2rem"></span><div class="catalog-tile-name">Apple TV+</div><div class="catalog-tile-count">Apple Originals</div></div>
+        <div class="catalog-tile cat-disney"><span style="font-size:1rem;font-weight:900;color:#5b8cff">D+</span><div class="catalog-tile-name">Disney+</div><div class="catalog-tile-count">Marvel · Star Wars</div></div>
+        <div class="catalog-tile cat-prime"><span style="font-size:0.9rem;font-weight:900;color:#00A8E0">prime</span><div class="catalog-tile-name">Amazon Prime</div><div class="catalog-tile-count">Prime Video</div></div>
+        <div class="catalog-tile cat-hulu"><span style="font-size:1rem;font-weight:900;color:#1CE783">hulu</span><div class="catalog-tile-name">Hulu</div><div class="catalog-tile-count">Live & On-Demand</div></div>
+        <div class="catalog-tile cat-paramount"><span style="font-size:1rem;font-weight:900;color:#4d8aff">P+</span><div class="catalog-tile-name">Paramount+</div><div class="catalog-tile-count">CBS · MTV · BET</div></div>
+        <div class="catalog-tile cat-peacock"><span style="font-size:1rem">🦚</span><div class="catalog-tile-name">Peacock</div><div class="catalog-tile-count">NBC Universal</div></div>
+        <div class="catalog-tile cat-espn"><span style="font-size:0.85rem;font-weight:900;color:#ff4444">ESPN+</span><div class="catalog-tile-name">ESPN+</div><div class="catalog-tile-count">Live Sports</div></div>
+        <div class="catalog-tile cat-crunchyroll"><span style="font-size:1rem">🍥</span><div class="catalog-tile-name">Crunchyroll</div><div class="catalog-tile-count">Anime</div></div>
+        <div class="catalog-tile cat-mubi"><span style="font-size:0.9rem;font-weight:900;color:#ff5555">MUBI</span><div class="catalog-tile-name">MUBI</div><div class="catalog-tile-count">Indie & Arthouse</div></div>
+        <div class="catalog-tile cat-more"><span style="font-size:1rem">+</span><div class="catalog-tile-name">& More</div><div class="catalog-tile-count">12+ Addons</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="stremio-feat-strip">
+    <div class="feat-list fade-up">
+      <div class="feat-item"><div class="feat-check">✓</div><p><strong>12+ addons auto-installed</strong> — Torrentio, Jackettio, TorrentsDB, Debrid Search, Anime Catalogs and more</p></div>
+      <div class="feat-item"><div class="feat-check">✓</div><p><strong>Works on Android TV, Firestick, Google Onn</strong> — remote install over WiFi, no USB required</p></div>
+      <div class="feat-item"><div class="feat-check">✓</div><p><strong>Real-Debrid pre-configured</strong> — your API key is embedded automatically in every addon</p></div>
+      <div class="feat-item"><div class="feat-check">✓</div><p><strong>macOS & Windows supported</strong> — cross-platform installer scripts available for download</p></div>
+    </div>
+    <div class="fade-up">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:22px;padding:2rem">
+        <div class="s-label" style="color:var(--pink)">Get It Set Up</div>
+        <h3 style="font-size:1.5rem;font-weight:900;margin-bottom:0.75rem">Ready to stream <span class="grad">everything?</span></h3>
+        <p style="color:var(--gray);font-size:0.9rem;line-height:1.7;margin-bottom:1.5rem">Book a Stremio setup and we'll handle the whole install — addons, Real-Debrid, and all your catalogs — remotely or in person.</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap">
+          <a href="#contact" class="btn-p">Book Streaming Setup</a>
+          <a href="stremio-install.command" download class="btn-s">⬇ macOS Script</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section id="how">
+  <div class="s-label">The Process</div>
+  <h2 class="s-title">Simple as <span class="grad">1, 2, 3.</span></h2>
+  <p class="s-sub">No long waits, no confusing quotes. Here's exactly how booking with EZStream IT works.</p>
+  <div class="steps">
+    <div class="step fade-up">
+      <div class="step-num" style="background:linear-gradient(135deg,rgba(123,47,255,.18),rgba(123,47,255,.04));border:2px solid rgba(123,47,255,.5)"><span>01</span></div>
+      <h3>Contact Us</h3>
+      <p>Fill out the form and tell us what you need. We'll respond within 24 hours with next steps.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num" style="background:linear-gradient(135deg,rgba(0,212,255,.18),rgba(0,212,255,.04));border:2px solid rgba(0,212,255,.5)">
+        <span style="background:linear-gradient(135deg,var(--cyan),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">02</span>
+      </div>
+      <h3>Get Your Quote</h3>
+      <p>We'll send a fair, transparent price based on your specific setup — no hidden fees.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num" style="background:linear-gradient(135deg,rgba(255,45,120,.18),rgba(255,45,120,.04));border:2px solid rgba(255,45,120,.5)">
+        <span style="background:linear-gradient(135deg,var(--pink),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">03</span>
+      </div>
+      <h3>We Handle It</h3>
+      <p>Remote or in-person — we get your tech set up, configured, and running perfectly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOOK / CALENDLY ── -->
+<section id="book" style="background:var(--bg2)">
+  <div class="book-wrap">
+    <div class="fade-up">
+      <div class="s-label">Schedule</div>
+      <h2 class="s-title">Book a time that <span class="grad">works for you.</span></h2>
+      <p class="s-sub">Pick a slot directly on the calendar — no back-and-forth needed. Once booked, you'll get a confirmation with next steps.</p>
+      <div style="margin-top:2rem;display:flex;flex-direction:column;gap:1rem">
+        <div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gray)">
+          <span style="color:var(--cyan);font-size:1rem">✓</span> Free 15-min consultation calls available
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gray)">
+          <span style="color:var(--cyan);font-size:1rem">✓</span> Remote sessions via screen share or ADB
+        </div>
+        <div style="display:flex;align-items:center;gap:0.8rem;font-size:0.9rem;color:var(--gray)">
+          <span style="color:var(--cyan);font-size:1rem">✓</span> In-person available — contact for location
+        </div>
+      </div>
+    </div>
+    <!-- Calendly placeholder — replace data-url with your Calendly link when ready -->
+    <div class="calendly-placeholder fade-up" id="calendly-wrap">
+      <div class="calendly-icon">📅</div>
+      <div class="coming">Coming Soon</div>
+      <h3>Online Booking</h3>
+      <p>Direct calendar booking is being set up. In the meantime, use the contact form below or reach out directly to schedule a time.</p>
+      <a href="#contact" class="btn-p" style="margin-top:0.5rem">Contact Us Instead →</a>
+    </div>
+    <!-- When ready, replace the placeholder div above with:
+    <div class="calendly-inline-widget" data-url="https://calendly.com/YOUR_USERNAME" style="min-width:320px;height:700px;border-radius:22px;overflow:hidden"></div>
+    <script async src="https://assets.calendly.com/assets/external/widget.js"></script>
+    -->
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="s-head fade-up" style="text-align:center">
+    <div class="s-label">FAQ</div>
+    <h2 class="s-title">Common <span class="grad">questions.</span></h2>
+    <p class="s-sub" style="margin:0 auto">Everything you need to know before booking. Don't see your question? Just reach out.</p>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q">Do you work remotely? <div class="faq-chevron">▾</div></button>
+      <div class="faq-a"><div class="faq-a-inner">Yes — most services can be done 100% remotely via screen share or ADB over WiFi (for Android TV / streaming devices). No need to be local for phone setup, laptop config, Stremio installs, and more.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What areas do you serve in person? <div class="faq-chevron">▾</div></button>
+      <div class="faq-a"><div class="faq-a-inner">In-person service is available locally — contact us to confirm availability at your location. Remote service is available worldwide with no extra charge.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Do I need to buy my own PC parts? <div class="faq-chevron">▾</div></button>
+      <div class="faq-a"><div class="faq-a-inner">For gaming PC builds, we handle part selection and sourcing within your budget, but parts are purchased separately (you pay for parts directly). Our fee covers labor: sourcing advice, assembly, OS install, driver setup, and testing.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How long does a typical setup take? <div class="faq-chevron">▾</div></button>
+      <div class="faq-a"><div class="faq-a-inner">Most phone, TV, and Stremio setups take under an hour. Laptop setups typically run 1–2 hours. Full gaming PC builds can take 3–5 hours depending on complexity. We'll give you a time estimate before we start.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What payment methods do you accept? <div class="faq-chevron">▾</div></button>
+      <div class="faq-a"><div class="faq-a-inner">We accept Cash App, Zelle, Venmo, and cash. Payment is collected after the service is complete and you're satisfied. For larger jobs, a small deposit may be requested upfront.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Do you guarantee your work? <div class="faq-chevron">▾</div></button>
+      <div class="faq-a"><div class="faq-a-inner">Yes. If something isn't working right after we finish, we'll fix it at no extra charge. We won't consider a job done until you're happy with the result.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Do I need a Real-Debrid subscription for Stremio? <div class="faq-chevron">▾</div></button>
+      <div class="faq-a"><div class="faq-a-inner">Real-Debrid is highly recommended for the best quality and reliability — it runs about $4/month and makes a massive difference. We can walk you through signing up, or you can get it beforehand. The setup works without it, but RD gives you the best experience.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REFER A FRIEND ── -->
+<div id="refer">
+  <div class="refer-wrap fade-up">
+    <div class="refer-icon">🤝</div>
+    <div class="refer-text">
+      <h3>Know someone who needs a setup?</h3>
+      <p>Refer a friend and you both save. When they book and mention your name, you get <strong style="color:var(--white)">$20 off</strong> your next service — no limit on referrals.</p>
+      <a href="#contact" class="refer-reward">Refer Someone → Earn $20</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div>
+      <div class="s-label">Get In Touch</div>
+      <h2 class="s-title">Ready to get <span class="grad">set up?</span></h2>
+      <p class="s-sub">Tell us what you need and we'll get back to you with a custom quote — usually within 24 hours.</p>
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:linear-gradient(135deg,rgba(123,47,255,.2),rgba(123,47,255,.04))">📧</div>
+          <!-- Replace with your real email when ready -->
+          <div><h4>Email</h4><p>Coming soon</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(0,212,255,.04))">📞</div>
+          <!-- Replace with your real phone when ready -->
+          <div><h4>Phone / Text</h4><p>Coming soon</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:linear-gradient(135deg,rgba(0,255,136,.2),rgba(0,255,136,.04))">⚡</div>
+          <div><h4>Response Time</h4><p>Under 24 hours</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:linear-gradient(135deg,rgba(255,45,120,.2),rgba(255,45,120,.04))">🌐</div>
+          <div><h4>Service Area</h4><p>Remote &amp; In-Person</p></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:linear-gradient(135deg,rgba(37,211,102,.2),rgba(37,211,102,.04))">💬</div>
+          <!-- Replace XXXXXXXXXX with your number (no dashes) -->
+          <div><h4>WhatsApp / Text</h4><p><a href="sms:+1XXXXXXXXXX" style="color:var(--white);text-decoration:none">Text us directly</a></p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formspree: replace YOUR_FORMSPREE_ID with your ID from formspree.io -->
+    <form id="booking-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+      <input type="hidden" name="_subject" value="New EZStream IT Booking Request">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" placeholder="John Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="john@example.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone (optional)</label>
+        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+      </div>
+      <div class="form-group">
+        <label for="service">Service Needed</label>
+        <select id="service" name="service" required>
+          <option value="" disabled selected>Select a service...</option>
+          <option>🖥️ Custom Gaming PC Build</option>
+          <option>📡 Camera Setup</option>
+          <option>📺 TV Setup</option>
+          <option>📱 Phone Setup</option>
+          <option>💻 Laptop Setup</option>
+          <option>🎬 Stremio / Streaming Device</option>
+          <option>💻 Website Design &amp; Build</option>
+          <option>🦠 Virus &amp; Malware Removal</option>
+          <option>🌐 Home Network Setup</option>
+          <option>🔒 Security Audit</option>
+          <option>🔧 Other / Not Sure</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="message">Tell us more (optional)</label>
+        <textarea id="message" name="message" placeholder="Describe what you need, your devices, any budget info..."></textarea>
+      </div>
+      <button type="submit" class="btn-p" id="submit-btn" style="width:100%;font-size:1rem;padding:1rem 2rem">
+        Send Request →
+      </button>
+      <p id="form-msg">✓ Request sent! We'll be in touch within 24 hours.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="f-logo">EZStream IT</div>
+  <p>© 2026 EZStream IT · James E. All rights reserved.</p>
+  <!-- Replace # with your actual social links -->
+  <div class="social-links">
+    <a href="#" target="_blank" rel="noopener" class="social-link" title="Instagram">📸</a>
+    <a href="#" target="_blank" rel="noopener" class="social-link" title="TikTok">🎵</a>
+    <a href="#" target="_blank" rel="noopener" class="social-link" title="Facebook">💬</a>
+    <a href="#" target="_blank" rel="noopener" class="social-link" title="YouTube">▶</a>
+  </div>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ── INTRO SPLASH ── */
+  const splashTL = gsap.timeline({ onComplete: () => {
+    document.getElementById('splash').style.display = 'none';
+  }});
+  splashTL
+    .to('#splash-line',   { width: 60, duration: 0.5, ease: 'power3.out' })
+    .to('.splash-logo',   { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, '-=0.2')
+    .to('.splash-sub',    { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2')
+    .to('#splash',        { opacity: 0, duration: 0.5, ease: 'power2.in', delay: 0.7 })
+    .then(() => startHero());
+
+  function startHero() {
+    gsap.timeline()
+      .from('.badge',       { opacity:0, y:20, duration:0.6, ease:'power3.out' })
+      .from('h1',           { opacity:0, y:35, duration:0.8, ease:'power3.out' }, '-=0.3')
+      .from('.hero-p',      { opacity:0, y:22, duration:0.6, ease:'power3.out' }, '-=0.4')
+      .from('.btns',        { opacity:0, y:20, duration:0.6, ease:'power3.out' }, '-=0.35')
+      .from('.scroll-hint', { opacity:0, duration:0.8 }, '-=0.2');
+  }
+
+  /* ── SCROLL PROGRESS BAR ── */
+  window.addEventListener('scroll', () => {
+    const pct = (scrollY / (document.body.scrollHeight - innerHeight)) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+
+  /* ── ORB PARALLAX ── */
+  document.addEventListener('mousemove', e => {
+    const rx = (e.clientX / innerWidth  - 0.5) * 35;
+    const ry = (e.clientY / innerHeight - 0.5) * 35;
+    gsap.to('.orb-1', { x: rx*.6,  y: ry*.6,  duration:2, ease:'power1.out' });
+    gsap.to('.orb-2', { x:-rx*.45, y:-ry*.45, duration:2, ease:'power1.out' });
+    gsap.to('.orb-3', { x: rx*.3,  y: ry*.3,  duration:2, ease:'power1.out' });
+  });
+
+  /* ── SCROLL FADE-UPS ── */
+  gsap.utils.toArray('.fade-up').forEach((el, i) => {
+    gsap.to(el, {
+      scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' },
+      opacity: 1, y: 0, duration: 0.72,
+      delay: (i % 3) * 0.08,
+      ease: 'power3.out'
+    });
+  });
+
+  /* ── ANIMATED STAT COUNTERS ── */
+  const counters = document.querySelectorAll('[data-target]');
+  const countObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el     = entry.target;
+      const target = +el.dataset.target;
+      const suffix = el.dataset.suffix || '';
+      let current  = 0;
+      const step   = Math.ceil(target / 40);
+      const timer  = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = current + suffix;
+      }, 40);
+      countObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => countObs.observe(c));
+
+  /* ── MOBILE MENU ── */
+  function openMob() { document.getElementById('mobile-overlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMob() { document.getElementById('mobile-overlay').classList.remove('open'); document.body.style.overflow = ''; }
+
+  /* ── STREMIO NAV TABS ── */
+  document.querySelectorAll('.stremio-nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.stremio-nav-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
+  /* ── FORM SUBMIT (Formspree) ── */
+  document.getElementById('booking-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    const msg = document.getElementById('form-msg');
+    btn.textContent = 'Sending...';
+    btn.style.opacity = '0.65';
+    try {
+      const res = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+      if (res.ok) {
+        btn.textContent = '✓ Request Sent!';
+        btn.style.background = 'linear-gradient(135deg,#00FF88,#00D4FF)';
+        btn.style.opacity = '1';
+        msg.style.display = 'block';
+        this.reset();
+      } else {
+        btn.textContent = 'Send Request →';
+        btn.style.opacity = '1';
+        alert('Something went wrong. Please try again.');
+      }
+    } catch {
+      btn.textContent = 'Send Request →';
+      btn.style.opacity = '1';
+    }
+  });
+
+  /* ── FAQ ACCORDION ── */
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  /* ── STICKY CTA — HIDE IN CONTACT SECTION ── */
+  const stickyCta = document.getElementById('sticky-cta');
+  window.addEventListener('scroll', () => {
+    const contact = document.getElementById('contact');
+    if (contact && stickyCta) {
+      const inContact = contact.getBoundingClientRect().top < window.innerHeight;
+      stickyCta.style.opacity = inContact ? '0' : '1';
+      stickyCta.style.pointerEvents = inContact ? 'none' : 'auto';
+    }
+  });
+
+  /* ── NAV SCROLL HIGHLIGHT ── */
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const secs = document.querySelectorAll('section[id]');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    secs.forEach(s => { if (scrollY >= s.offsetTop - 80) cur = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? '#fff' : ''; });
+  });
+
+  /* ── AI CHAT WIDGET ── */
+  let chatOpen = false;
+  let chatHistory = [];
+  let chatBusy = false;
+
+  function toggleChat() {
+    chatOpen = !chatOpen;
+    document.getElementById('chat-panel').classList.toggle('open', chatOpen);
+    if (chatOpen) {
+      document.getElementById('chat-input').focus();
+      // hide badge once opened
+      const badge = document.querySelector('#chat-fab .chat-badge');
+      if (badge) badge.style.display = 'none';
+    }
+  }
+
+  function sendSuggestion(el) {
+    const text = el.textContent;
+    document.getElementById('chat-suggestions').style.display = 'none';
+    sendMessage(text);
+  }
+
+  function sendChat() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text || chatBusy) return;
+    input.value = '';
+    sendMessage(text);
+  }
+
+  function sendMessage(text) {
+    if (chatBusy) return;
+    appendMsg('user', text);
+    chatHistory.push({ role: 'user', content: text });
+    showTyping();
+    chatBusy = true;
+
+    fetch('/.netlify/functions/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: chatHistory })
+    })
+    .then(r => r.json())
+    .then(data => {
+      hideTyping();
+      chatBusy = false;
+      const reply = data.reply || data.error || 'Sorry, something went wrong. Please try again.';
+      appendMsg('bot', reply);
+      chatHistory.push({ role: 'assistant', content: reply });
+    })
+    .catch(() => {
+      hideTyping();
+      chatBusy = false;
+      appendMsg('bot', 'Connection error. Please check your internet and try again.');
+    });
+  }
+
+  function appendMsg(role, text) {
+    const box = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-msg ' + role;
+    div.textContent = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function showTyping() {
+    const box = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-typing';
+    div.id = 'chat-typing-dots';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+  }
+
+  function hideTyping() {
+    const el = document.getElementById('chat-typing-dots');
+    if (el) el.remove();
+  }
+</script>
+
+<!-- ── FLOATING CONTACT BUTTON (desktop) ── -->
+<!-- Replace sms:+1XXXXXXXXXX with your real number, or use a wa.me link for WhatsApp -->
+<a href="sms:+1XXXXXXXXXX" id="float-contact">💬 Text Us</a>
+
+<!-- ── STICKY MOBILE CTA ── -->
+<div id="sticky-cta">
+  <a href="#contact" class="sticky-btn">Get a Free Quote →</a>
+</div>
+
+<!-- ── AI CHAT WIDGET ── -->
+<button id="chat-fab" onclick="toggleChat()" aria-label="Open chat">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+  <div class="chat-badge">AI</div>
+</button>
+
+<div id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">EZStream AI Assistant</div>
+      <div class="chat-header-status">Online — Ask me anything</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">Hey! 👋 I'm the EZStream IT assistant. Ask me about services, pricing, or how to get started!</div>
+  </div>
+  <div class="chat-suggestions" id="chat-suggestions">
+    <span class="chat-pill" onclick="sendSuggestion(this)">What services do you offer?</span>
+    <span class="chat-pill" onclick="sendSuggestion(this)">How much does it cost?</span>
+    <span class="chat-pill" onclick="sendSuggestion(this)">Do you do remote support?</span>
+    <span class="chat-pill" onclick="sendSuggestion(this)">How do I book?</span>
+  </div>
+  <div class="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Type a message..." autocomplete="off" onkeydown="if(event.key==='Enter')sendChat()">
+    <button id="chat-send" onclick="sendChat()" aria-label="Send">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+</body>
+</html>
