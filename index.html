@@ -14,13 +14,22 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#7B2FFF">
 
+  <!-- TODO: replace ezstream-it.netlify.app with your real domain once it's live/custom -->
+  <link rel="canonical" href="https://ezstream-it.netlify.app/">
+  <meta property="og:url" content="https://ezstream-it.netlify.app/">
+  <meta property="og:site_name" content="EZStream IT">
+  <!-- TODO: swap for a dedicated 1200x630 share image; using a setup photo as a working fallback -->
+  <meta property="og:image" content="https://ezstream-it.netlify.app/setup1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EZStream IT — Tech Setup, Done Right.">
+  <meta name="twitter:description" content="Freelance IT services: gaming PCs, cameras, Stremio, phones, laptops. 7 years experience. Fast, honest, priced for real people.">
+  <meta name="twitter:image" content="https://ezstream-it.netlify.app/setup1.jpg">
+
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%237B2FFF'/><stop offset='100%25' stop-color='%2300D4FF'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='66' font-family='Arial Black,sans-serif' font-weight='900' font-size='40' text-anchor='middle' fill='white'>EZ</text></svg>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1095,14 +1104,14 @@
   </div>
   <div class="gallery-grid">
     <div class="gallery-item fade-up">
-      <img src="setup1.jpg" alt="Triple monitor gaming setup with RGB lighting by EZStream IT">
+      <img src="setup1.jpg" alt="Triple monitor gaming setup with RGB lighting by EZStream IT" width="768" height="1024" loading="lazy" decoding="async">
       <div class="gallery-caption">
         <h4>Triple Monitor Gaming Build</h4>
         <p>Custom gaming rig · RGB lighting · Fully configured</p>
       </div>
     </div>
     <div class="gallery-item fade-up">
-      <img src="setup2.jpg" alt="Dual monitor workstation with custom PC tower by EZStream IT">
+      <img src="setup2.jpg" alt="Dual monitor workstation with custom PC tower by EZStream IT" width="666" height="1182" loading="lazy" decoding="async">
       <div class="gallery-caption">
         <h4>Dual Monitor Workstation</h4>
         <p>Custom PC tower · Dual display · Ambient LED</p>
@@ -1117,7 +1126,7 @@
   <div class="about-wrap">
     <div class="about-photo-wrap fade-up">
       <div class="about-photo-frame">
-        <img src="james.jpg" alt="James E — EZStream IT">
+        <img src="james.jpg" alt="James E — EZStream IT" width="601" height="1306" loading="lazy" decoding="async">
       </div>
       <div class="about-badge-float">
         <span>7</span>
@@ -1666,9 +1675,10 @@
       </div>
     </div>
 
-    <!-- Formspree: replace YOUR_FORMSPREE_ID with your ID from formspree.io -->
-    <form id="booking-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-      <input type="hidden" name="_subject" value="New EZStream IT Booking Request">
+    <!-- Netlify Forms: submissions appear in Netlify dashboard → Forms. Set up an email notification there. -->
+    <form id="booking-form" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="booking">
+      <p hidden><label>Leave this empty: <input name="bot-field"></label></p>
       <div class="form-row">
         <div class="form-group">
           <label for="name">Your Name</label>
@@ -1725,6 +1735,8 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
   gsap.registerPlugin(ScrollTrigger);
 
@@ -1805,7 +1817,7 @@
     });
   });
 
-  /* ── FORM SUBMIT (Formspree) ── */
+  /* ── FORM SUBMIT (Netlify Forms) ── */
   document.getElementById('booking-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
@@ -1813,7 +1825,11 @@
     btn.textContent = 'Sending...';
     btn.style.opacity = '0.65';
     try {
-      const res = await fetch(this.action, { method: 'POST', body: new FormData(this), headers: { 'Accept': 'application/json' } });
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(this)).toString()
+      });
       if (res.ok) {
         btn.textContent = '✓ Request Sent!';
         btn.style.background = 'linear-gradient(135deg,#00FF88,#00D4FF)';
