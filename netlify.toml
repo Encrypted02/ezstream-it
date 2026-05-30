@@ -3,3 +3,7 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Installs deps from the function's own package.json (@anthropic-ai/sdk) at build time.
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
