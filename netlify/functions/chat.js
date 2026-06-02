@@ -57,9 +57,62 @@ EZStream IT is a freelance IT services business run by James. In-person service 
 - Keep responses short — 1-3 sentences max unless listing services
 - Never make up information not listed above`;
 
+// ── Abuse guards ──────────────────────────────────────────────
+// This endpoint is public and spends money on every call, so we gate it.
+// Hosts allowed to call the function. Override/extend via ALLOWED_ORIGINS (comma-separated).
+const ALLOWED_HOSTS = (process.env.ALLOWED_ORIGINS || "ezstream-it.netlify.app")
+  .split(",")
+  .map((h) => h.trim().toLowerCase())
+  .filter(Boolean)
+  .concat(["localhost", "127.0.0.1"]);
+
+const MAX_MESSAGES = 20;        // hard cap on history length accepted
+const MAX_MSG_CHARS = 2000;     // hard cap on a single message's length
+const RATE_LIMIT = 15;          // max requests per IP...
+const RATE_WINDOW_MS = 60_000;  // ...per this window
+
+// In-memory sliding window. Persists across warm invocations of the same
+// container — not bulletproof, but stops trivial scripted abuse cheaply.
+const hits = new Map(); // ip -> number[] (timestamps)
+
+function rateLimited(ip) {
+  const now = Date.now();
+  const recent = (hits.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  if (hits.size > 5000) hits.clear(); // crude memory cap
+  return recent.length > RATE_LIMIT;
+}
+
+function hostOf(value) {
+  try {
+    return new URL(value).host.toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
+  }
+
+  // Only allow calls from our own pages (blocks drive-by curl/script abuse).
+  const h = event.headers || {};
+  const origin = hostOf(h.origin || h.Origin || "");
+  const referer = hostOf(h.referer || h.Referer || "");
+  const okOrigin = ALLOWED_HOSTS.some((a) => origin === a || referer === a);
+  if (!okOrigin) {
+    return { statusCode: 403, body: "Forbidden" };
+  }
+
+  // Per-IP rate limit.
+  const ip =
+    h["x-nf-client-connection-ip"] ||
+    (h["x-forwarded-for"] || "").split(",")[0].trim() ||
+    "unknown";
+  if (rateLimited(ip)) {
+    return { statusCode: 429, body: JSON.stringify({ error: "Too many messages — please slow down." }) };
   }
 
   let body;
@@ -69,9 +122,26 @@ exports.handler = async (event) => {
     return { statusCode: 400, body: "Invalid JSON" };
   }
 
-  const { messages } = body;
+  let { messages } = body;
   if (!messages || !Array.isArray(messages)) {
     return { statusCode: 400, body: "Missing messages" };
+  }
+
+  // Validate + bound the input before it ever reaches the API.
+  messages = messages.slice(-10); // keep last 10 messages for context
+  if (messages.length > MAX_MESSAGES) {
+    return { statusCode: 400, body: "Too many messages" };
+  }
+  for (const m of messages) {
+    if (
+      !m ||
+      (m.role !== "user" && m.role !== "assistant") ||
+      typeof m.content !== "string" ||
+      m.content.length === 0 ||
+      m.content.length > MAX_MSG_CHARS
+    ) {
+      return { statusCode: 400, body: "Invalid message format" };
+    }
   }
 
   try {
@@ -80,7 +150,7 @@ exports.handler = async (event) => {
       max_tokens: 512,
       // Cache the static system prompt — ~90% cheaper input on repeat turns within the 5-min TTL.
       system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
-      messages: messages.slice(-10), // keep last 10 messages for context
+      messages,
     });
 
     return {

@@ -25,6 +25,43 @@
   <meta name="twitter:description" content="Freelance IT services: gaming PCs, cameras, Stremio, phones, laptops. 7 years experience. Fast, honest, priced for real people.">
   <meta name="twitter:image" content="https://ezstream-it.netlify.app/setup1.jpg">
 
+  <!-- Structured data: helps Google show rich results / local listings.
+       TODO: add "telephone" and update "url" once a phone number + custom domain are live. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "EZStream IT",
+    "description": "Freelance IT services: gaming PC builds, security camera installation, Stremio streaming setup, phone & laptop configuration, virus removal, network setup, and security audits. Remote & in-person.",
+    "url": "https://ezstream-it.netlify.app/",
+    "image": "https://ezstream-it.netlify.app/setup1.jpg",
+    "priceRange": "$40–$200",
+    "founder": { "@type": "Person", "name": "James E" },
+    "areaServed": [
+      { "@type": "Place", "name": "Worldwide (remote)" },
+      { "@type": "Place", "name": "Local (in-person)" }
+    ],
+    "availableLanguage": ["English", "Haitian Creole"],
+    "paymentAccepted": ["Cash App", "Zelle", "Venmo", "Cash"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "IT Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gaming PC Build" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 100, "maxPrice": 200 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Camera Setup" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 75, "maxPrice": 150 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "TV Setup" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 50 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Stremio Setup" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 40 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Phone Setup" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 40, "maxPrice": 75 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Laptop Setup" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 50, "maxPrice": 100 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Virus Removal" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 60, "maxPrice": 100 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Network Setup" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 75, "maxPrice": 150 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Security Audit" }, "priceSpecification": { "@type": "PriceSpecification", "priceCurrency": "USD", "minPrice": 50, "maxPrice": 100 } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Website Design & Build" } }
+      ]
+    }
+  }
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%237B2FFF'/><stop offset='100%25' stop-color='%2300D4FF'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='66' font-family='Arial Black,sans-serif' font-weight='900' font-size='40' text-anchor='middle' fill='white'>EZ</text></svg>">
 

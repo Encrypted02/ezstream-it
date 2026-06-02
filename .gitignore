@@ -1,0 +1,7 @@
+# Local Netlify folder
+.netlify
+
+# Function dependencies (installed at build time by plugin-functions-install-core)
+node_modules/
+netlify/functions/node_modules/
+netlify/functions/package-lock.json
